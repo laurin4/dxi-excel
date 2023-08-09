@@ -1,5 +1,5 @@
 ---
-bibliography: references.bib
+# bibliography: references.bib
 
 title: Daten visualisieren
 
