@@ -14,7 +14,7 @@ book:
  
   - kapitel/einleitung/kapitel.md
   
-  - part: "Teil I: Datenquellen"
+  - part: "Datenquellen"
     chapters:
     - kapitel/dateiformate/kapitel.md
     - kapitel/daten-importieren/kapitel.md
@@ -23,7 +23,7 @@ book:
     - kapitel/zeichenketten/kapitel.md
     - kapitel/datenstrukturen/kapitel.md
  
-  - part: "Teil II: Mathematik der Daten"
+  - part: "Mathematik der Daten"
     chapters:
     - kapitel/variablen/kapitel.md
     - kapitel/neutrales-element/kapitel.md
@@ -32,7 +32,7 @@ book:
     - kapitel/vektor-operationen/kapitel.md
     - kapitel/matrix-operationen/kapitel.md
   
-  - part: "Teil III: Deskriptive Datenanalyse"
+  - part: "Deskriptive Datenanalyse"
     chapters:
     - kapitel/daten-formen/kapitel.md
     - kapitel/daten-beschreiben/kapitel.md
