@@ -447,3 +447,176 @@ Weil alle Vergleiche die Gleichheit überprüfen, kann die Formel mit der Funkti
 ```
 
 Für diesen Schritt muss die Operation mit der Funktion `WENNFEHLER()` erweitert werden, weil die Funktion `FEHLER.TYP()` einen Fehler ausgibt, wenn der übergebene Wert kein Fehlerwert ist. Weil die Fehlertypen mit Werten grösser `0` durchnummeriert sind, bietet sich für reguläre Werte der Wert `0` an. 
+
+
+----- 
+Die Basisfunktionen für das Sortieren sind die Funktionen `sort()` (R) und `SORTIEREN()` (Excel). Diese Funktionen bringen einen Vektor in die gewünschte Reihenfolge.  Beide Funktionen können nur nach einem Vektor sortieren. Deshalb eignen sie sich  nur für einfache Sortierungen. 
+
+> **Excels `SORTIEREN()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
+
+-  `Matrix` - der zu sortierende Bereich, der *keine* Matrix sein muss.
+- `Sortierindex` - die Spalten- oder Zeilennummer, nach der sortiert werden soll. Standardmässig wird die erste Spalte bzw. die erste Zeile angenommen. 
+- `Sortierreihenfolge` - legt die Sortierreihenfolge fest. `1`, um aufsteigend und `-1`, um absteigend zu sortieren.
+- `nach_Spalte` - Ein Wahrheitswert, ob die Spalten oder die Zeilen sortiert werden sollen. `WAHR` bedeutet, dass die Spalten (horizontal) sortiert werden sollen. `FALSCH` bedeutet, dass die Zeilen (vertikal) sortiert werden sollen. Standardmässig wird zeilenweise sortiert. 
+
+
+#### Die Funktionen `arrange()` und `SORTIERENNACH()`
+
+Für allgemeine Sortierungen nach mehreren Vektoren stellen Excel und R eigene Funktionen bereit. Zwei dieser Funktionen heben sich wegen ihrer Flexibilität besonders ab. Ihnen liegt der gleiche Denkprozess zu Grunde. Diese beiden Funktionen sind:
+
+- Die R-Funktion `arrange()` und 
+- die Excel-Funktion `SORTIERENNACH()`.
+
+Beide Funktionen ermöglichen uns, mehrere Vektoren auf einmal nach **mehreren** gemeinsamen Kriterien zu sortieren. Dazu müssen wir zuerst die Sortierkriterien identifizieren. 
+
+#### Schritt 1: Sortierkriterien festlegen. 
+
+Die Sortierkriterien sind durch die Werte in Vektoren festgelegt, nach denen sortiert werden soll. Wir können dazu mehrere Vektoren festlegen, deren Werte nacheinander zum Sortieren unserer Daten verwendet werden. In R legen wir die Suchkriterien über die entsprechenden *Vektornamen* und in Excel über entsprechende Vektoren oder Bereiche fest. 
+
+- In R müssen die Vektoren mit den Suchkriterien im Stichprobenobjekt vorhanden sein.  
+- In Excel können die Vektoren mit den Suchkriterien an einer beliebigen Position in einer Arbeitsmappe liegen. Dabei müssen zwei Bedingungen erfüllt sein: 
+  1. Die Vektoren müssen die gleiche Länge haben. 
+  2. Die Vektoren müssen die gleiche Orientierung haben. 
+
+#### Schritt 2: 
+
+Im zweiten Schritt werden die zu sortierenden Vektoren ausgewählt.
+
+In R wird dieser zweite Schritt automatisch auf die vorgegebene Stichprobe angewandt. In Excel können wir zusammenhängende Vektoren als "Matrix" an die `SORTIERENNACH()`-Funktion übergeben. Hängen die Vektoren nicht direkt zusammen, dann müssen mehrere Sortieroperationen mit den gleichen Referenzen auf die Sortierreferenzen durchgeführt werden. 
+
+### Sortierreihenfolge
+
+In Excel wird die Sortierrichtung als `Sortierreihenfolge` bezeichnet und als separater Parameter für das jeweilige Sortierkriterium angegeben. Dabei steht `1` für die aufsteigende Sortierung und `-1` für die absteigende Sortierung. 
+
+In R wird grundsätzlich von einer aufsteigenden Sortierung ausgegangen. Um eine absteigende Sortierung zu erreichen, verwenden wir die Hilfsfunktion `desc()` (für engl. *descending* ~ *absteigend*). 
+
+Das folgende R-Beispiel zeigt, wie die Daten im Stichprobenobjekt, zu erst absteigend nach dem `natel`-Vektor und anschliessend nach dem `geschlecht`-Vektor sortiert werden. 
+
+```
+daten %>% 
+    arrange(
+         desc(natel), # Sortierkriterium absteigend sortiert
+         geschlecht   # Sortierkriterium aufsteigend sortiert
+    )
+```
+
+
+### Einfache Verzweigungen
+
+Excels Entscheidungsfunktion ist die `WENN()`-Funktion. Diese Funktion hat drei Parameter: 
+
+1. Einen logischen Ausdruck - dieser Parameter wird als Wahrheitswert interpretiert. 
+2. `WAHR`-Ergebnis - dieser Parameter wird als Ergebnis zurückgegeben, wenn der erste Parameter `WAHR` ist.
+3. `FALSCH`-Ergebnis - dieser Parameter wird als Ergebnis zurückgegeben, wenn der erste Parameter `FALSCH` ist. 
+
+Diese Funktion entscheidet mit Hilfe des logischen Ausdrucks, welcher der beiden anderen Parameter zurückgegeben werden muss. 
+
+In R heisst diese Funktion `ifelse()` und hat genau die gleichen Parameter. 
+
+Häufig finden wir Formeln, in denen einfach ein Wert als erster Parameter an die `WENN()`-Funktion übergeben wird. Dieser Wert wird als logischer Ausdruck interpretiert. Dabei wird der Wert `0` mit dem Wahrheitswert `FALSCH` gleichgesetzt und Werte ungleich `0` werden  als `WAHR` interpretiert.
+
+### Abbruchbedingungen 
+
+> **Definition:** Eine **Abbruchbedingung** ist eine spezielle Entscheidung, die einen Algorithmus beendet. Dabei wird zwischen einem *konstanten* Wert und einem *dynamischen* Wert entschieden.
+
+Mit Hilfe von Abbruchbedingungen "schützen" wir unsere Programmlogik vor unerwünschten oder fehlerhaften Werten. 
+
+> Genau genommen bricht dieses Konzept nicht ab, sondern verwendet  die dynamischen Werte des Vektors nicht mehr. Stattdessen werden konstante Werte zurückgegeben. Für diese Werte müssen wir einen Wert wählen, der den logischen Ausdruck der Abbruchbedingung weiterhin so erfüllt, dass der Algorithmus diese Werte ignoriert. 
+
+### Komplexe Entscheidungen
+
+Komplexe Entscheidungen können wir uns als eine Folge einfacher Entscheidungen vorstellen. Weil solche Entscheidungen sehr unübersichtlich sein können, bieten Excel und R Kurzformen an, mit denen wir solche Folgen einfacher schreiben können.
+
+> **Definition:** Eine Verkettung von Entscheidungen wird als **Entscheidungsbaum** bezeichnet.
+
+> **Definition:** Ein *Entscheidungsbaum*, der nur für einen  logischen Ausdruck genau eine Entscheidung vorsieht, heisst **linearer Entscheidungsbaum**.
+
+### Excels WENNS
+
+Die `WENNS()`-Funktion erlaubt es uns, verschiedene Entscheidungen zusammenzufassen. Dabei gibt es immer Paare von logischen Ausdrücken und Ergebniswerten. Die `WENNS()`-Funktion prüft nacheinander die logischen Ausdrücke und liefert als Ergebnis den Wert, der zum ersten logischen Ausdruck gehört, der WAHR ergibt. 
+
+**Beispiel A: linearer Entscheidungsbaum**
+
+```
+=WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; A1 <= 3; "Ungenügend")
+```
+
+Beachten Sie, dass im Beispiel der zweite logische Ausdruck auch für die Werte des ersten logischen Ausdrucks WAHR ergeben würde. Weil aber diese Fälle bereits durch den ersten logischen Ausdruck abgefangen werden, kommen diese gar nicht mehr zum zweiten logischen Ausdruck. Entsprechend müssen Sie aufpassen, dass die logischen Ausdrücke sich nicht überschneiden. 
+
+**Beispiel B: nicht erreichbare Entscheidungen**
+
+```
+=WENNS( A1 > 5; "Sehr gut"; A1 > 3; "Genügend"; A1 > 4; "Gut"; A1 <= 3; "Ungenügend")
+```
+
+In Beispiel B kann nie das Ergebnis "Gut" angezeigt werden, weil der zweite logische Ausdruck (A1 > 3) alle Werte "maskiert", die durch den dritten logischen Ausdruck (A1 > 4) als "Gut" markiert werden müssten. "Ungenügend" würde trotzdem angezeigt werden, wenn der Wert in A1 entweder 1, 2 oder 3 ist.
+
+In diesem Beispiel kann die Entscheidung `A1 > 4` nicht erreicht werden, weil das vorherige und allgemeinere Kriterium `A1 > 3` für die gleichen Werte zutrifft.  
+
+> **Merke:** Es müssen also immer die spezielleren Kriterien vor den allgemeineren Kriterien geprüft werden.
+
+
+Es ist guter Stil, das letzte Parameterpaar immer für den gültigen logischen Ausdruck `WAHR` zu reservieren. Damit stellen Sie sicher, dass für jeden möglichen Eingabewert ein gültiges Ergebnis zurückgegeben wird. Dieser Schritt ist notwendig, weil `WENNS()` keine Alternativausgabe hat.
+
+**Beispiel C: Abschliessender Standardwert mit `WAHR`**
+
+```
+=WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; UND(A1 <= 3; A1 > 0); "Ungenügend"; WAHR; "Nicht angetreten")
+```
+### R's `case_when()` Funktion
+
+Die Funktion `case_when()` ist die Entsprechung für `WENNS()` in Excel. Allerdings ist die Schreibweise für die Fälle etwas anders. 
+
+**Beispiel D: `case_when()`  Entscheidungsbaum.**
+
+```R
+data = c(1,2,3,4,5,6,0,4)
+
+case_when(
+    data <= 3 ~ "ungenügend",
+    data > 5 ~ "Sehr gut",
+    data > 4 ~ "gut",
+    data > 3 ~ "ausreichend"
+)
+```
+
+Für jeden Fall können wir einen logischen Ausdruck angeben. Dieser logische Ausdruck wird vom Tilde-Symbol (`~`) gefolgt. Dabei handelt es sich um den *"aus `a` folgt `b`"-Operator*. Die rechte Seite dieses Operators  zeigt an, welcher Wert aus dem logischen Ausdruck folgt.
+
+> Den Parameter `data <= 3 ~ "ungenügend"` wird wie folgt gelesen: "Aus den Werten in `data`, die kleiner oder gleich `3` sind, folgt die Zeichenkette `ungenügend`. 
+
+
+Wie in Excel müssen auch bei dieser Funktion die spezifischeren logischen Ausdrücke vor den unspezifischeren Ausdrücken im Entscheidungsbaum angegeben werden. 
+
+Es ist üblich, ebenfalls eine immer zutreffende allgemeine Bedingung als letzten Parameter zu übergeben. 
+
+**Beispiel E: abschliessende allgemeine Bedingung.**
+
+```R
+data = c(1,2,3,4,5,6,0,4)
+
+case_when(
+    data <= 3 & data > 0 ~ "ungenügend",
+    data > 5 ~ "Sehr gut",
+    data > 4 ~ "gut",
+    data > 3 ~ "ausreichend",
+    TRUE ~ "nicht angetreten"
+)
+```
+
+### Sonstige Entscheidungen in Excel
+
+In Excel gibt es zusätzlich die beiden Funktionen `WENNFEHLER()` und deren spezialisierte Form `WENNNV()`. Diese Funktionen erlauben eine kompaktere Schreibweise der typischen Fehlerbehandlung: Wenn kein Fehler erzeugt wird, dann wird das Ergebnis der Formel des ersten Parameters als Ergebnis geliefert. Wird ein Fehler erzeugt, dann wird der 2. Parameter als Rückfallwert  zurückgegeben. 
+
+Wir sparen uns mit diesen beiden Funktionen die Schreibweise: 
+
+```
+=WENN(ISTFEHLER(A1); "Rückfallwert", A1)
+```
+
+Stattdessen schreiben wir:
+
+```
+=WENNFEHLER(A1, "Rückfallwert")
+```
+
+Das ist leichter verständlich, als die ausführliche Variante mit `WENN()`.
