@@ -1,1 +1,0 @@
-Kurze Information zum Copyleft und Verwendung
