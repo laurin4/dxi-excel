@@ -1,43 +1,65 @@
 project:
   type: book
 
+lang: de
+# Change labels that are not properly changed by the language
+crossref:
+  eq-prefix: Formel # (default is "Equation")
+  prp-title: Satz
+
 book:
   title: Einführung in die Datenwissenschaft mit EXCEL
   author: 
-  - family: Glahn
-    given: Christian  
+  - name: Christian Glahn  
   page-navigation: true
 
   chapters:
   - index.qmd
   # - vorwort.qmd
  
-  - kapitel/einleitung/kapitel.md
-  - kapitel/einleitung/excel-versionen.md
+  # Woche 1
+  - part: Ausgangslage und Vorbereitung
+    chapters:
+    - kapitel/einleitung/kapitel.md
+    - kapitel/einleitung/excel-versionen.md
   
   - part: "Datenquellen"
     chapters:
-    - kapitel/daten-sammeln/kapitel.md
+    # Woche 2
+    - kapitel/daten-importieren/kapitel.md
+    # Woche 3
     - kapitel/daten-organisieren/kapitel.md
 
-    
+    # Woche 4
     - kapitel/datentypen/kapitel.md
+
+    # Woche 5
     - kapitel/daten-importieren/kapitel.md
 
- 
   - part: "Mathematik der Daten"
     chapters:
+    # Woche 6
     - kapitel/variablen/kapitel.md
+    # Woche ?
+    - kapitel/zeichenketten/kapitel.md
+    # Woche 8
     - kapitel/boolsche-operationen/kapitel.md
+    # Woche 9
     - kapitel/vektor-operationen/kapitel.md
+    # Woche 10 
     - kapitel/matrix-operationen/kapitel.md
   
+    # Woche 11 
+    - kapitel/kodieren-gruppieren/kapitel.md
+    - kapitel/daten-formen/kapitel.md
+
   - part: "Deskriptive Datenanalyse"
     chapters:
-    - kapitel/daten-formen/kapitel.md
+    # Woche 14
     - kapitel/daten-beschreiben/kapitel.md
+    # Woche 7
     - kapitel/daten-visualisieren/kapitel.md
-    - kapitel/lineare-modelle/kapitel.md
+    # - kapitel/lineare-modelle/kapitel.md
 
 format:
   html:
