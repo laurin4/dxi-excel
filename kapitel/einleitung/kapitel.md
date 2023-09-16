@@ -1,16 +1,15 @@
 ---
 # bibliography: references.bib
 
-title: Einleitung
-
-abstract: ""
-
 execute: 
   echo: false
 ---
 
-## Motivation und Ausgangslage
+# Einleitung {#sec-chapter-einleitung}
 
-## Anwendungen
+## Ziele
+
+![Ziele und Themen](figures/DXI_big_picture/DXI_big_picture.png){#fig-objectives}
 
 ## Organisation dieses Buchs
+
