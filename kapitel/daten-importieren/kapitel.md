@@ -1,10 +1,6 @@
 ---
-# bibliography: references.bib
-
-title: Daten importieren
-
-abstract: ""
-
 execute: 
   echo: false
 ---
+
+# Daten importieren {#sec-chapter-daten-importieren}

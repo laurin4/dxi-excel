@@ -1,10 +1,3 @@
----
-# bibliography: references.bib
+# Daten organisieren {#sec-chapter-daten-organisieren}
 
-title: Daten organisieren
-
-abstract: ""
-
-execute: 
-  echo: false
----
+## Daten in Tabellen organisieren

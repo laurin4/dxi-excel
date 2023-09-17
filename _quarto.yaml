@@ -8,7 +8,7 @@ crossref:
   prp-title: Satz
 
 book:
-  title: Einführung in die Datenwissenschaft mit EXCEL
+  title: Einführung in die Datenwissenschaft mit Excel
   author: 
   - name: Christian Glahn  
   page-navigation: true
@@ -26,7 +26,7 @@ book:
   - part: "Datenquellen"
     chapters:
     # Woche 2
-    - kapitel/daten-importieren/kapitel.md
+    - kapitel/daten-sammeln/kapitel.md
     # Woche 3
     - kapitel/daten-organisieren/kapitel.md
 
@@ -59,6 +59,7 @@ book:
     - kapitel/daten-beschreiben/kapitel.md
     # Woche 7
     - kapitel/daten-visualisieren/kapitel.md
+    - kapitel/daten-visualisieren/pivot-tabellen.md
     # - kapitel/lineare-modelle/kapitel.md
 
 format:

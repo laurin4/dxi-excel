@@ -1,8 +1,6 @@
 ---
 # bibliography: references.bib
 
-title: Aussagenlogik
-
 abstract: |
     Dieses Kapitel befasst sich mit der Anwendung der Aussagenlogik in Excel. Es werden die logischen Operatoren NICHT, UND, ODER und XODER behandelt. Auf dieser Grundlage werden die wichtigsten Vergleichsoperation zum Formulieren logischer Ausdrücke vorgestellt. Das Kapitel schliesst mit der Anwendung von Fallunterscheidungen.
 
@@ -12,6 +10,7 @@ abstract: |
 execute: 
   echo: false
 ---
+# Aussagenlogik {#sec-chapter-boolsche-operationen}
 
 ## Wahrheitswerte in Excel 
 
@@ -26,7 +25,9 @@ Werden Wahrheitswerte in mathematischen Operationen und Funktionen verwendet, da
 
 Werden Wahrheitswerte als Parameter an Zeichenkettenfunktionen übergeben, dann werden die Wahrheitswerte in die entsprechende Zeichenkette umgewandelt. Aus dem Wert `WAHR` wird also die Zeichenkette `"WAHR"` und aus dem Wert `FALSCH` wird die Zeichenkette `"FALSCH"`. 
 
-> **ACHTUNG:** Wahrheitswerte werden in den verschiedenen Sprachversionen von Excel in der eingestellten Sprache angegeben. Beim Wechsel zwischen verschiedenen Excel-Sprachversionen werden die Wahrheitswerte automatisch korrekt angezeigt. Die Umwandlung in Zeichenketten erfolgt dann in der jeweiligen Sprache. Deshalb sollte die Verwendung von in Zeichenketten konvertierten Wahrheitswerten in nachgelagerten Funktionen vermieden werden.
+::: {.callout-warning} 
+Wahrheitswerte werden in den verschiedenen Sprachversionen von Excel in der eingestellten Sprache angegeben. Beim Wechsel zwischen verschiedenen Excel-Sprachversionen werden die Wahrheitswerte automatisch korrekt angezeigt. Die Umwandlung in Zeichenketten erfolgt dann in der jeweiligen Sprache. Deshalb sollte die Verwendung von in Zeichenketten konvertierten Wahrheitswerten in nachgelagerten Funktionen vermieden werden.
+:::
 
 ## Aussagenlogische Operationen
 
@@ -165,7 +166,7 @@ Lassen wir den dritten Parameter weg, dann wird der Wert `FALSCH` zurückgegeben
 = WENN(FALSCH; "Guten Tag")
 ```
 
-Ausser der Fallunterscheidung hat `WENN()` keine weiteren Eigenschaften. Deshalb wird diese Funktion in der Praxis oft mit anderen Funktionen kombiniert. Das kann mit der Funktion `WENN()` selbst geschehen. In diesem Fall wird von verschachtelten Fallunterscheidungen gesprochen.
+Ausser der Fallunterscheidung hat `WENN()` keine weiteren Eigenschaften. Deshalb wird diese Funktion in der Praxis oft mit anderen Funktionen kombiniert. Das kann mit der Funktion `WENN()` selbst geschehen. In diesem Fall wird von geschachtelten Fallunterscheidungen gesprochen.
 
 Zur Veranschaulichung dient das folgende Beispiel:
 
@@ -174,7 +175,7 @@ Zur Veranschaulichung dient das folgende Beispiel:
 |1|  `4` |
 |2| `7` |
 
-Eine Fallunterscheidung soll prüfen, ob die Werte in `A1:A2` Werte gleich `1`, `3`, `4` oder `8` sind. Falls das der Fall ist, soll der zugehörige Zahlwert als Zeichenkette ausgegeben werden. Falls das nicht der Fall ist, soll der Wert `Ungültig` zurückgegeben werden.  Als verschachtelte `WENN()`-Funktion lässt sich diese Fallunterscheidung wie folgt formulieren:
+Eine Fallunterscheidung soll prüfen, ob die Werte in `A1:A2` Werte gleich `1`, `3`, `4` oder `8` sind. Falls das der Fall ist, soll der zugehörige Zahlwert als Zeichenkette ausgegeben werden. Falls das nicht der Fall ist, soll der Wert `Ungültig` zurückgegeben werden.  Als geschachtelte `WENN()`-Funktion lässt sich diese Fallunterscheidung wie folgt formulieren:
 
 ```
 = WENN(A1 = 1; "Eins"; 
@@ -184,17 +185,17 @@ Eine Fallunterscheidung soll prüfen, ob die Werte in `A1:A2` Werte gleich `1`, 
                       "Ungültig"))))
 ```
 
-Eine solche verschachtelte Fallunterscheidung wird als *Entscheidungsbaum* bezeichnet.
+Eine solche geschachtelte Fallunterscheidung wird als *Entscheidungsbaum* bezeichnet.
 
 ### WENNS
 
-Die Funktion `WENN()` ist eine *einfache* Fallunterscheidung. In vielen Excel-Arbeitsmappen existieren verschachtelte Aufrufe von `WENN()`-Funktionen. Diese Aufrufe machen die Formeln nicht nur schwer lesbar, sondern auch fehleranfällig und ineffizient. Deshalb sollten verschachtelte Fallunterscheidungen unbedingt vermieden werden. Mit der Funktion `WENNS()` lassen sich verschachtelte Fallunterscheidungen vermeiden, indem alle Fallunterscheidungen in einem einzigen Funktionsaufruf zusammengefasst werden. 
+Die Funktion `WENN()` ist eine *einfache* Fallunterscheidung. In vielen Excel-Arbeitsmappen existieren geschachtelte Aufrufe von `WENN()`-Funktionen. Diese Aufrufe machen die Formeln nicht nur schwer lesbar, sondern auch fehleranfällig und ineffizient. Deshalb sollten geschachtelte Fallunterscheidungen unbedingt vermieden werden. Mit der Funktion `WENNS()` lassen sich geschachtelte Fallunterscheidungen vermeiden, indem alle Fallunterscheidungen in einem einzigen Funktionsaufruf zusammengefasst werden. 
 
-> **Merke:** Verschachtelte Fallunterscheidungen mit `WENN()` unbedingt vermeiden!
+> **Merke:** geschachtelte Fallunterscheidungen mit `WENN()` unbedingt vermeiden!
 
 Die Funktion `WENNS()` erwartet Parameterpaare, bestehend aus einem logischen Ausdruck und dem Ergebnis, falls dieser logische Ausdruck `WAHR` ergibt. Die Funktion kann bis zu 127 Parameterpaare verarbeiten, so dass sich auch sehr komplexe Fallunterscheidungen mit dieser Funktion abbilden lassen.
 
-(*Beispiel 1*) Das folgende Beispiel zeigt die Verwendung der Funktion `WENNS()` für die verschachtelte Fallunterscheidung aus dem Abschnitt `WENN`.
+(*Beispiel 1*) Das folgende Beispiel zeigt die Verwendung der Funktion `WENNS()` für die geschachtelte Fallunterscheidung aus dem Abschnitt `WENN`.
 
 ```
 = WENNS(A2:A3 = 1; "Eins"; 
@@ -242,7 +243,7 @@ WENN(J2>=O2;
 
 Diese Formel ist aus zwei Gründen übermässig komplex.
 
-1. Die Fallunterscheidung mit `WENN()` ist verschachtelt.
+1. Die Fallunterscheidung mit `WENN()` ist geschachtelt.
 2. Es existieren *redundante* Fallunterscheidungen. 
 
 Bevor die Fallunterscheidung mit `WENNS()` vereinfacht wird, werden die redundanten Fallunterscheidungen entfernt. Das betrifft die zweite (`J2 > L2`) und die vierte Fallunterscheidung (`J2 > N2`). Im jeweiligen `FALSCH`-Fall wird der gegenteilige logische Ausdruck geprüft. Das ist in diesem Fall unnötig, weil die äussere Fallunterscheidung diesen Fall bereits abdeckt. Werden die redundanten logischen Ausdrücke und unnötige Klammern entfernt, dann ergibt sich die folgende wesentlich einfachere Formel.
@@ -259,7 +260,7 @@ Bevor die Fallunterscheidung mit `WENNS()` vereinfacht wird, werden die redundan
     100)
 ```
 
-Die äusserste Fallunterscheidung hat für den Fall `WAHR` eine verschachtelte `WENN()`-Funktion und im Fall `FALSCH` ein einfaches Ergebnis. Das ist für `WENNS()` unhandlich, so dass die äusserste Fallunterscheidung durch Umkehrung des logischen Ausdrucks umgestellt wird. 
+Die äusserste Fallunterscheidung hat für den Fall `WAHR` eine geschachtelte `WENN()`-Funktion und im Fall `FALSCH` ein einfaches Ergebnis. Das ist für `WENNS()` unhandlich, so dass die äusserste Fallunterscheidung durch Umkehrung des logischen Ausdrucks umgestellt wird. 
 
 ```
 = WENN(J2<O2;
@@ -304,7 +305,7 @@ Diese Formel hat jedoch den Makel, dass der letzte Fall `WAHR` keine Konstante a
   )
 ```
 
-Diese Formel ist deutlich einfacher und weniger Fehleranfällig als die ursprüngliche Formel mit verschachtelten `WENN()`-Funktionen. Es lassen sich auch weitere Fälle hinzufügen, ohne dass die Formel komplexer wird. Dabei ist zu beachten, dass diese Fälle *vor* dem Fall `WAHR` angegeben werden müssen.
+Diese Formel ist deutlich einfacher und weniger Fehleranfällig als die ursprüngliche Formel mit geschachtelten `WENN()`-Funktionen. Es lassen sich auch weitere Fälle hinzufügen, ohne dass die Formel komplexer wird. Dabei ist zu beachten, dass diese Fälle *vor* dem Fall `WAHR` angegeben werden müssen.
 
 ### ERSTERWERT
 
@@ -402,8 +403,9 @@ Normalerweise würde diese Entscheidung durch die folgende Operation abgebildet:
 = WENN((A1:A10 > 10) * (A1:A10 < 20); A1:A10; 0)
 ```
 
-> **Achtung:** Diese spezielle Fallunterscheidung sollte auf Korrektheit überprüft werden, wenn im `WAHR`-Fall der Wert `0` erlaubt ist. In diesem Fall wird der Wert `0` nicht vom logischen Ausdruck unterschieden.
-
+::: {.callout-warning}
+Diese spezielle Fallunterscheidung sollte auf Korrektheit überprüft werden, wenn im `WAHR`-Fall der Wert `0` erlaubt ist. In diesem Fall wird der Wert `0` nicht vom logischen Ausdruck unterschieden.
+:::
 
 Weil alle Werte Zahlen sind, handelt es sich um den Spezialfall, dass der `WAHR`-Wert eine Zahl und der `FALSCH`-Fall eine 0 ist. Für diesen Fall lässt sich die Formel vereinfachen, indem die gesuchten Werte mit dem logischen Ausdruck multipliziert werden:
 
@@ -452,13 +454,14 @@ Für diesen Schritt muss die Operation mit der Funktion `WENNFEHLER()` erweitert
 ----- 
 Die Basisfunktionen für das Sortieren sind die Funktionen `sort()` (R) und `SORTIEREN()` (Excel). Diese Funktionen bringen einen Vektor in die gewünschte Reihenfolge.  Beide Funktionen können nur nach einem Vektor sortieren. Deshalb eignen sie sich  nur für einfache Sortierungen. 
 
-> **Excels `SORTIEREN()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
+::: {.callout-note}
+**Excels `SORTIEREN()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
 
 -  `Matrix` - der zu sortierende Bereich, der *keine* Matrix sein muss.
 - `Sortierindex` - die Spalten- oder Zeilennummer, nach der sortiert werden soll. Standardmässig wird die erste Spalte bzw. die erste Zeile angenommen. 
 - `Sortierreihenfolge` - legt die Sortierreihenfolge fest. `1`, um aufsteigend und `-1`, um absteigend zu sortieren.
 - `nach_Spalte` - Ein Wahrheitswert, ob die Spalten oder die Zeilen sortiert werden sollen. `WAHR` bedeutet, dass die Spalten (horizontal) sortiert werden sollen. `FALSCH` bedeutet, dass die Zeilen (vertikal) sortiert werden sollen. Standardmässig wird zeilenweise sortiert. 
-
+:::
 
 #### Die Funktionen `arrange()` und `SORTIERENNACH()`
 
@@ -469,7 +472,7 @@ Für allgemeine Sortierungen nach mehreren Vektoren stellen Excel und R eigene F
 
 Beide Funktionen ermöglichen uns, mehrere Vektoren auf einmal nach **mehreren** gemeinsamen Kriterien zu sortieren. Dazu müssen wir zuerst die Sortierkriterien identifizieren. 
 
-#### Schritt 1: Sortierkriterien festlegen. 
+#### Schritt 1: Sortierkriterien festlegen. 
 
 Die Sortierkriterien sind durch die Werte in Vektoren festgelegt, nach denen sortiert werden soll. Wir können dazu mehrere Vektoren festlegen, deren Werte nacheinander zum Sortieren unserer Daten verwendet werden. In R legen wir die Suchkriterien über die entsprechenden *Vektornamen* und in Excel über entsprechende Vektoren oder Bereiche fest. 
 
@@ -517,91 +520,62 @@ Häufig finden wir Formeln, in denen einfach ein Wert als erster Parameter an di
 
 ### Abbruchbedingungen 
 
-> **Definition:** Eine **Abbruchbedingung** ist eine spezielle Entscheidung, die einen Algorithmus beendet. Dabei wird zwischen einem *konstanten* Wert und einem *dynamischen* Wert entschieden.
+::: {#def-abbruchbedingung}
+Eine **Abbruchbedingung** ist eine spezielle Entscheidung, die einen Algorithmus beendet. Dabei wird zwischen einem *konstanten* Wert und einem *dynamischen* Wert entschieden.
+:::
 
 Mit Hilfe von Abbruchbedingungen "schützen" wir unsere Programmlogik vor unerwünschten oder fehlerhaften Werten. 
 
-> Genau genommen bricht dieses Konzept nicht ab, sondern verwendet  die dynamischen Werte des Vektors nicht mehr. Stattdessen werden konstante Werte zurückgegeben. Für diese Werte müssen wir einen Wert wählen, der den logischen Ausdruck der Abbruchbedingung weiterhin so erfüllt, dass der Algorithmus diese Werte ignoriert. 
+::: {.callout-note}
+Genau genommen bricht dieses Konzept nicht ab, sondern verwendet  die dynamischen Werte des Vektors nicht mehr. Stattdessen werden konstante Werte zurückgegeben. Für diese Werte müssen wir einen Wert wählen, der den logischen Ausdruck der Abbruchbedingung weiterhin so erfüllt, dass der Algorithmus diese Werte ignoriert. 
+:::
 
 ### Komplexe Entscheidungen
 
 Komplexe Entscheidungen können wir uns als eine Folge einfacher Entscheidungen vorstellen. Weil solche Entscheidungen sehr unübersichtlich sein können, bieten Excel und R Kurzformen an, mit denen wir solche Folgen einfacher schreiben können.
 
-> **Definition:** Eine Verkettung von Entscheidungen wird als **Entscheidungsbaum** bezeichnet.
-
-> **Definition:** Ein *Entscheidungsbaum*, der nur für einen  logischen Ausdruck genau eine Entscheidung vorsieht, heisst **linearer Entscheidungsbaum**.
-
 ### Excels WENNS
 
 Die `WENNS()`-Funktion erlaubt es uns, verschiedene Entscheidungen zusammenzufassen. Dabei gibt es immer Paare von logischen Ausdrücken und Ergebniswerten. Die `WENNS()`-Funktion prüft nacheinander die logischen Ausdrücke und liefert als Ergebnis den Wert, der zum ersten logischen Ausdruck gehört, der WAHR ergibt. 
 
-**Beispiel A: linearer Entscheidungsbaum**
+
+::: {#exm-wenns-linear}
+## Linearer Entscheidungsbaum**
 
 ```
 =WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; A1 <= 3; "Ungenügend")
 ```
+:::
 
-Beachten Sie, dass im Beispiel der zweite logische Ausdruck auch für die Werte des ersten logischen Ausdrucks WAHR ergeben würde. Weil aber diese Fälle bereits durch den ersten logischen Ausdruck abgefangen werden, kommen diese gar nicht mehr zum zweiten logischen Ausdruck. Entsprechend müssen Sie aufpassen, dass die logischen Ausdrücke sich nicht überschneiden. 
+Beachten Sie, dass im @exm-wenns-nicht-erreichbar der zweite logische Ausdruck auch für die Werte des ersten logischen Ausdrucks WAHR ergeben würde. Weil aber diese Fälle bereits durch den ersten logischen Ausdruck abgefangen werden, kommen diese gar nicht mehr zum zweiten logischen Ausdruck. Entsprechend müssen Sie aufpassen, dass die logischen Ausdrücke sich nicht überschneiden. 
 
-**Beispiel B: nicht erreichbare Entscheidungen**
+::: {#exm-wenns-nicht-erreichbar}
+## Nicht erreichbare Entscheidungen**
 
 ```
 =WENNS( A1 > 5; "Sehr gut"; A1 > 3; "Genügend"; A1 > 4; "Gut"; A1 <= 3; "Ungenügend")
 ```
+:::
 
-In Beispiel B kann nie das Ergebnis "Gut" angezeigt werden, weil der zweite logische Ausdruck (A1 > 3) alle Werte "maskiert", die durch den dritten logischen Ausdruck (A1 > 4) als "Gut" markiert werden müssten. "Ungenügend" würde trotzdem angezeigt werden, wenn der Wert in A1 entweder 1, 2 oder 3 ist.
+In @exm-wenns-nicht-erreichbar kann nie das Ergebnis "Gut" angezeigt werden, weil der zweite logische Ausdruck (A1 > 3) alle Werte "maskiert", die durch den dritten logischen Ausdruck (A1 > 4) als "Gut" markiert werden müssten. "Ungenügend" würde trotzdem angezeigt werden, wenn der Wert in A1 entweder 1, 2 oder 3 ist.
 
 In diesem Beispiel kann die Entscheidung `A1 > 4` nicht erreicht werden, weil das vorherige und allgemeinere Kriterium `A1 > 3` für die gleichen Werte zutrifft.  
 
-> **Merke:** Es müssen also immer die spezielleren Kriterien vor den allgemeineren Kriterien geprüft werden.
-
+::: {.callout-note}
+## Merke
+Es müssen immer die spezielleren Kriterien vor den allgemeineren Kriterien geprüft werden.
+:::
 
 Es ist guter Stil, das letzte Parameterpaar immer für den gültigen logischen Ausdruck `WAHR` zu reservieren. Damit stellen Sie sicher, dass für jeden möglichen Eingabewert ein gültiges Ergebnis zurückgegeben wird. Dieser Schritt ist notwendig, weil `WENNS()` keine Alternativausgabe hat.
 
-**Beispiel C: Abschliessender Standardwert mit `WAHR`**
+::: {#exm-wenns-wahr}
+## Abschliessender Standardwert mit `WAHR`**
 
 ```
 =WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; UND(A1 <= 3; A1 > 0); "Ungenügend"; WAHR; "Nicht angetreten")
 ```
-### R's `case_when()` Funktion
+:::
 
-Die Funktion `case_when()` ist die Entsprechung für `WENNS()` in Excel. Allerdings ist die Schreibweise für die Fälle etwas anders. 
-
-**Beispiel D: `case_when()`  Entscheidungsbaum.**
-
-```R
-data = c(1,2,3,4,5,6,0,4)
-
-case_when(
-    data <= 3 ~ "ungenügend",
-    data > 5 ~ "Sehr gut",
-    data > 4 ~ "gut",
-    data > 3 ~ "ausreichend"
-)
-```
-
-Für jeden Fall können wir einen logischen Ausdruck angeben. Dieser logische Ausdruck wird vom Tilde-Symbol (`~`) gefolgt. Dabei handelt es sich um den *"aus `a` folgt `b`"-Operator*. Die rechte Seite dieses Operators  zeigt an, welcher Wert aus dem logischen Ausdruck folgt.
-
-> Den Parameter `data <= 3 ~ "ungenügend"` wird wie folgt gelesen: "Aus den Werten in `data`, die kleiner oder gleich `3` sind, folgt die Zeichenkette `ungenügend`. 
-
-
-Wie in Excel müssen auch bei dieser Funktion die spezifischeren logischen Ausdrücke vor den unspezifischeren Ausdrücken im Entscheidungsbaum angegeben werden. 
-
-Es ist üblich, ebenfalls eine immer zutreffende allgemeine Bedingung als letzten Parameter zu übergeben. 
-
-**Beispiel E: abschliessende allgemeine Bedingung.**
-
-```R
-data = c(1,2,3,4,5,6,0,4)
-
-case_when(
-    data <= 3 & data > 0 ~ "ungenügend",
-    data > 5 ~ "Sehr gut",
-    data > 4 ~ "gut",
-    data > 3 ~ "ausreichend",
-    TRUE ~ "nicht angetreten"
-)
-```
 
 ### Sonstige Entscheidungen in Excel
 
