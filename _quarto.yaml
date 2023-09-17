@@ -1,6 +1,8 @@
 project:
   type: book
 
+bibliography: dxi-skript.bib
+
 lang: de
 # Change labels that are not properly changed by the language
 crossref:
@@ -61,6 +63,8 @@ book:
     - kapitel/daten-visualisieren/kapitel.md
     - kapitel/daten-visualisieren/pivot-tabellen.md
     # - kapitel/lineare-modelle/kapitel.md
+
+  - references.qmd
 
 format:
   html:
