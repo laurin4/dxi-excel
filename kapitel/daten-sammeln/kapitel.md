@@ -25,15 +25,17 @@ Ein Formular kann in Microsoft Forms ein **Quiz** oder ein **Formular** sein. Ei
 
 Microsoft Forms unterstützt die folgenden Antworttypen:
 
-- Einfachauswahl
-- Mehrfachauswahl
-- Offene Texteingabe
-- Dateumseingabe
-- Likert-Skala
-- Bewertung
-- Net Promoter Score
-- Rangfolge
-- Datei-Upload
+- Offene Antworttypen
+    - Offene Texteingabe
+    - Dateumseingabe
+    - Datei hochladen
+- Geschlossene Antworttypen
+    - Einfachauswahl
+    - Mehrfachauswahl
+    - Rangfolge
+    - Likert-Skala
+    - Bewertung
+    - Net Promoter Score
 
 Jede dieser Varianten hat die folgenden gemeinsamen Optionen:
 
@@ -44,6 +46,20 @@ Jede dieser Varianten hat die folgenden gemeinsamen Optionen:
 - Eine Verzweigung zu einer anderen Frage, wenn eine bestimmte Antwort gegeben wird (*Verzweigung*).
 
 Die Unterschiede ergeben sich in den Antwortmöglichkeiten.
+
+### Offene Texteingabe (*Text*)
+
+Die offene Texteingabe erlaubt einzeilige und mehrzeilige (*lange*) *offene Antworten* möglich sind. Damit können un- oder semistrukturierte Daten erfasst werden. Diese Antwortmöglichkeit lässt sich auf Zahlenwerte und Zahlenintervalle eingeschränken.
+
+### Datumseingabe (*Datum*)
+
+Diese Eingabe ist eine Variante der *offenen Texteingabe* zur Eingabe eines Datums. Diese Eingabe wird durch die Option ergänzt, das Datum über eine Kalenderdarstellung  auszuwählen.
+
+Das eingegebene Datum wird als Zahl gespeichert und als Datum dargestellt. 
+
+### Datei hochlanden 
+
+Die zweite Variante für *offene Antworten* ist das Hochladen von Dateien. Mit diesem Antworttyp lassen sich Bilder, Videos oder Tonaufnahmen leicht erfassen.
 
 ### Einfachauswahl (*Auswahl*)
 
@@ -58,20 +74,6 @@ Das Ergebnis der Einfachauswahl ist eine Zeichenkette der ausgewählten Option.
 Die Mehrfachauswahl erlaubt die Auswahl mehrerer Antwortmöglichkeiten, indem die Option `Mehrere Antworten` aktiviert wird. Dieser Antworttyp ist ansonsten identisch mit der Einfachauswahl.
 
 Das Ergebnis der Mehrfachauswahl ist eine Zeichenkette mit den ausgewählten Optionen. Wurden mehrere Antworten ausgewählt, dann werden die Optionen durch ein Semikolon getrennt.
-
-### Offene Texteingabe (*Text*)
-
-Die offene Texteingabe erlaubt einzeilige und mehrzeilige (*lange*) *offene Antworten* möglich sind. Damit können un- oder semistrukturierte Daten erfasst werden. Diese Antwortmöglichkeit lässt sich auf Zahlenwerte und Zahlenintervalle eingeschränken.
-
-### Datei hochlanden 
-
-Die zweite Variante für *offene Antworten* ist das Hochladen von Dateien. Mit diesem Antworttyp lassen sich Bilder, Videos oder Tonaufnahmen leicht erfassen.
-
-### Datumseingabe (*Datum*)
-
-Diese Eingabe ist eine Variante der *offenen Texteingabe* zur Eingabe eines Datums. Diese Eingabe wird durch die Option ergänzt, das Datum über eine Kalenderdarstellung  auszuwählen.
-
-Das eingegebene Datum wird als Zahl gespeichert und als Datum dargestellt. 
 
 ### Rangfolge
 
@@ -147,7 +149,6 @@ Die Schemadefinition erfolgt in drei zusätzlichen Schritten:
 3. Für jeden Vektor wird mit der Option *Datenüberprüfung* eine Datenüberprüfung für den gewünschten Wertebereich definiert.
 4. Die Platzhalterzeile wird gelöscht.
 
-
 ### Funktionsweise der Datenüberprüfung
 
 Die Datenüberprüfung ist eine Funktion, die auf einen Bereich angewendet wird, wobei der Bereich eine einzelne Zelle, einer Zeile oder eine Spalte sein kann. Für das Schema einer Tabelle wird die Datenüberprüfung für eine Spalte eingerichtet. 
@@ -217,4 +218,3 @@ Im Gegensatz zu ordinalskalierten Wertebereichen, sollten nominalskalierte Werte
 :::
 
 Bei der Dateneingabe wird anschliessend ein Auswahlliste mit den zulässigen Werten, so dass die Werte nicht mehr direkt eingetippt werden müssen. Diese Auswahlliste kann unterbunden werden, wenn die Option `Zellendropdown` deaktiviert wird.
-

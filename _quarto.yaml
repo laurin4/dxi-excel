@@ -32,8 +32,8 @@ book:
     chapters:
     # Woche 2
     - kapitel/daten-sammeln/kapitel.md
-    # Woche 3
-    - kapitel/daten-organisieren/kapitel.md
+    # Woche 3 KEIN EXCEL TEIL
+    # - kapitel/daten-organisieren/kapitel.md
 
     # Woche 4
     - kapitel/datentypen/kapitel.md
