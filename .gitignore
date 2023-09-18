@@ -53,9 +53,8 @@ _bookdown_files/
 _book
 
 .quarto/
-
-
 /.quarto/
+/_site/
 
 **/kapitel_files/
 **/_book/
