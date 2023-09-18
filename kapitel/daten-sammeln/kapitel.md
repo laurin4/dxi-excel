@@ -13,13 +13,19 @@ Damit die Daten einheitlich erfasst werden, benötigt die Tabelle ein Schema. In
 
 Wurde die Datentabelle mit einem Schema erstellt, dann können die Werte in die Tabelle eingetragen werden. Die Datenüberprüfung wird automatisch auf die neuen Werte angewendet. Daten werden der Tabellen hinzugefügt, indem in der Zeile unterhalb der Tabelle neue Werte eingetragen werden. Die Tabellenstruktur mit dem Schema wird automatisch erweitert.
 
+Ein einfaches Datenschema umfasst nur die Spaltenüberschriften, die erfasst werden sollen. Dazu müssen die Tabellenüberschriften definiert werden. Die Tabellenüberschriften werden in der ersten Zeile der Tabelle eingetragen. Überschriften für weitere Merkmale können zu einem späteren Zeitpunkt noch ergänzt werden. Anschliessend werden die Überschriften markiert und es wird für diesen Bereich eine **Tabelle** eingefügt. Hierbei muss die Option `Tabelle hat Überschriften` aktiviert werden (s. @fig-tabelle-erstellen).
+
+![Tabelle erstellen](figures/tabelle_erstellen.png){#fig-tabelle-erstellen}
+
+### Schemadefinition durch Datenüberprüfung
+
+Die einfache Schemadefinition stellt nicht sicher, dass die Werte einheitlich abgelegt werden. Das kann später die Datenverarbeitung behindern. Die Schemadefinition durch Datenüberprüfung erlaubt die Wertebereiche der gemessenen Merkmale vorab festzulegen. Dadurch lassen sich potentielle Fehler bereits bei der Dateneingabe vermeiden. Hierzu ist es notwendig, die Wertebereiche und die zugehörige Datenklasse einer Spalte zu bestimmen. 
+
 ::: {.callout-tip}
 # Praxis
 
-Das Erstellen eines Schemas zur Dateneingabe ist in Excel aufwändig. Dieser Schritt sollte jedoch nicht übersprungen werden, weil die Datenüberprüfung die Datenqualität verbessert und die Datenverarbeitung erheblich vereinfacht.
+Das Erstellen eines Schemas zur Dateneingabe ist in Excel zwar aufwändig, dennoch sollte dieser Schritt nicht übersprungen werden, weil die Datenüberprüfung die Datenqualität verbessert und die Datenverarbeitung erheblich vereinfacht.
 :::
-
-### Schema Definition durch Datenüberprüfung
 
 In Excel müssen Vektoren durch die Option *Datenüberprüfung* definiert werden. Die Option *Datenüberprüfung* findet sich im Ribbon unter *Daten* (s. @fig-datenueberpruefung-ribbon) im Abschnitt *Datentools* (s. @fig-datenueberpruefung-datentools-details). 
 
@@ -27,15 +33,12 @@ In Excel müssen Vektoren durch die Option *Datenüberprüfung* definiert werden
 
 ![Datentools Details](figures/datentools_details.png){#fig-datenueberpruefung-datentools-details}
 
-Die Schemadefinition erfolgt in fünf Schritten:
+Die Schemadefinition erfolgt in drei zusätzlichen Schritten:
+ 
+2. Es wird eine *Platzhalterzeile* eingefügt, indem die Zelle unterhalb der ersten Überschrift ausgewählt wird. Die Platzhalterzeile wird benötigt, um die Datenüberprüfung zu definieren.
+3. Für jeden Vektor wird mit der Option *Datenüberprüfung* eine Datenüberprüfung für den gewünschten Wertebereich definiert.
+4. Die Platzhalterzeile wird gelöscht.
 
-1. Es müssen die Tabellenüberschriften definiert werden. Die Tabellenüberschriften werden in der ersten Zeile der Tabelle eingetragen. Überschriften für weitere Merkmale können zu einem späteren Zeitpunkt noch ergänzt werden.
-2. Die Überschriften werden markiert und es wird auf diesen Bereich eine **Tabelle** eingefügt. Hierbei muss die Option `Tabelle hat Überschriften` aktiviert werden (s. @fig-tabelle-erstellen).
-3. Es wird eine *Platzhalterzeile* eingefügt, indem die Zelle unterhalb der ersten Überschrift ausgewählt wird. Die Platzhalterzeile wird benötigt, um die Datenüberprüfung zu definieren.
-4. Für jeden Vektor wird mit der Option *Datenüberprüfung* eine Datenüberprüfung für den gewünschten Wertebereich definiert.
-5. Die Platzhalterzeile wird gelöscht.
-
-![Tabelle erstellen](figures/tabelle_erstellen.png){#fig-tabelle-erstellen}
 
 ### Funktionsweise der Datenüberprüfung
 
@@ -70,8 +73,6 @@ Um die fundamentalen Datentypen zu überprüfen, können die Informationsfunktio
 | Wahrheitswerte| `=ISTLOG($A$2)`      |
 
 : Überprüfungsausdrücke für die fundamentalen Datentypen {#tbl-datenueberpruefung-fundamentale-datentypen}
-
-
 
 ### Datenüberprüfung für ganze Zahlen
 
@@ -108,5 +109,3 @@ Im Gegensatz zu ordinalskalierten Wertebereichen, sollten nominalskalierte Werte
 :::
 
 Bei der Dateneingabe wird anschliessend ein Auswahlliste mit den zulässigen Werten, so dass die Werte nicht mehr direkt eingetippt werden müssen. Diese Auswahlliste kann unterbunden werden, wenn die Option `Zellendropdown` deaktiviert wird.
-
-
