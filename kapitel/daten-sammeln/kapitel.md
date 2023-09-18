@@ -5,21 +5,129 @@ execute:
 
 # Daten sammeln {#sec-chapter-daten-sammeln}
 
+## Daten mit Formularen sammeln {#sec-datacollection-forms}
+
+Die direkte Eingabe von Daten ist nur für kleine Datensätze mit wenigen Merkmalen geeignet. Bei grösseren Datensätzen ist die direkte Eingabe oft zu aufwändig und fehleranfällig. Für die strukturierte Dateneingabe von grösseren Datensätzen werden Formulare verwendet. 
+
+Bei der Dateneingabe über Formulare werden die Daten mithilfe von *Fragen* mit vorgegebenen Antworttypen gesammelt. Der Antworttyp bestimmt, welche Werte für die Frage zulässig sind.
+
+::: {.callout-note}
+In vielen Formularsystemen wird der *Antworttyp* als ***Fragetyp*** bezeichnet, obwohl die Frage immer in Text-Bildform präsentiert wird und der *Typ* durch die unterschiedlichen Antwortmöglichkeiten bestimmt wird.
+:::
+
+Durch das Festlegen des Antworttyps wird gleichzeigt der Wertebereich des gemessenen Merkmals definiert. Dadurch ergibt sich beim Erstellen eines Formulars das Datenschema automatisch.
+
+Excel hat kein eingenes Formularsystem. Stattdessen kann [Microsoft Forms](https://www.microsoft365.com/launch/forms) verwendet werden. Microsoft Forms ist ein Online-Formulardienst, der in Microsoft365 integriert ist. Forms sammelt die Eingaben mit einem Formular und speichert die Daten in einer Excel Arbeitsmappe. Diese Formulare können über einen Web-Link geteilt werden und im Web-Browser ausgefüllt werden. Dadurch kann das Datensammeln auf verschiedene Personen verteilt werden.
+
+::: {.callout-note}
+Ein Formular kann in Microsoft Forms ein **Quiz** oder ein **Formular** sein. Ein Quiz ist ein Formular, bei dem die Antworten mit einer Punktzahl bewertet werden und ein Feedback erhalten können. Ein Formular fokussiert sich auf die reine Dateneingabe.
+:::
+
+Microsoft Forms unterstützt die folgenden Antworttypen:
+
+- Einfachauswahl
+- Mehrfachauswahl
+- Offene Texteingabe
+- Dateumseingabe
+- Likert-Skala
+- Bewertung
+- Net Promoter Score
+- Rangfolge
+- Datei-Upload
+
+Jede dieser Varianten hat die folgenden gemeinsamen Optionen:
+
+- Eine einleitende Frage oder Anweisung.
+- Ein optionaler Untertitel oder eine Beschreibung. (*Untertitel*)
+- Die Möglichkeit eine mathematische Formel zur Validierung des Wertebereichs anzugeben (*Mathematik*).
+- Das erzwingen einer Antwort (*Erforderlich*).
+- Eine Verzweigung zu einer anderen Frage, wenn eine bestimmte Antwort gegeben wird (*Verzweigung*).
+
+Die Unterschiede ergeben sich in den Antwortmöglichkeiten.
+
+### Einfachauswahl (*Auswahl*)
+
+Die Einfachauswahl ist ein Single-Choice-Antworttyp. Es sind nur die vorgegebenen Antwortmöglichkeiten möglich, von denen nur eine ausgewählt werden kann. Die Antwortmöglichkeiten können als Text oder als Bild angegeben werden. Die Antwortmöglichkeiten werden immer in einer Liste angezeigt. Dabei kann zwischen einem Auswahlmenu als *Dropdown*-Liste und frei anwählbaren Antwortmöglichkeiten (*Optionen*) gewählt werden. 
+
+Die Reihenfolge der Antwortmöglichkeiten kann durch die Option `Optionen in zufälliger Reihenfolge` für jedes Formular zufällig angeordnet werden. Diese Option ist sinnvoll, wenn die Reihenfolge der Antwortmöglichkeiten die Antwort beeinflussen könnte. Soll ein Formular mehrfach durch die gleichen Personen ausgefüllt werden, dann sollte diese Option nicht aktiviert werden.
+
+Das Ergebnis der Einfachauswahl ist eine Zeichenkette der ausgewählten Option.
+
+### Mehrfachauswahl (*Auswahl*)
+
+Die Mehrfachauswahl erlaubt die Auswahl mehrerer Antwortmöglichkeiten, indem die Option `Mehrere Antworten` aktiviert wird. Dieser Antworttyp ist ansonsten identisch mit der Einfachauswahl.
+
+Das Ergebnis der Mehrfachauswahl ist eine Zeichenkette mit den ausgewählten Optionen. Wurden mehrere Antworten ausgewählt, dann werden die Optionen durch ein Semikolon getrennt.
+
+### Offene Texteingabe (*Text*)
+
+Die offene Texteingabe erlaubt einzeilige und mehrzeilige (*lange*) *offene Antworten* möglich sind. Damit können un- oder semistrukturierte Daten erfasst werden. Diese Antwortmöglichkeit lässt sich auf Zahlenwerte und Zahlenintervalle eingeschränken.
+
+### Datei hochlanden 
+
+Die zweite Variante für *offene Antworten* ist das Hochladen von Dateien. Mit diesem Antworttyp lassen sich Bilder, Videos oder Tonaufnahmen leicht erfassen.
+
+### Datumseingabe (*Datum*)
+
+Diese Eingabe ist eine Variante der *offenen Texteingabe* zur Eingabe eines Datums. Diese Eingabe wird durch die Option ergänzt, das Datum über eine Kalenderdarstellung  auszuwählen.
+
+Das eingegebene Datum wird als Zahl gespeichert und als Datum dargestellt. 
+
+### Rangfolge
+
+Die Rangfolge erlaubt es, dass die angebotenen Antwortmöglichkeiten in eine Reihenfolge gebracht werden können. Bei diesem Antworttyp müssen die Werte sortiert werden und die Sortierung wird als Antwort gespeichert. 
+
+Bei der Darstellung werden die Antwortmöglichkeiten in einer Liste angezeigt und für jedes Formular neu sortiert.
+
+Das Ergebnis der Rangfolge ist eine Zeichenkette mit der Reihung der Optionen. Die Optionen werden durch ein Semikolon getrennt. Im Ergebnis lässt sich die Rangfolge nicht von einer Mehrfachauswahl unterscheiden.
+
+### Likert-Skala (*Likert*)
+
+Der Antworttyp *Likert* setzt eine Fragebatterie mit Likert-Skalen um. Darüber lässt sich ein *semantisches Differential* erheben. 
+
+Die Anworten dieser Fragebatterie werden wie mehrere Einfachauswahlen als Zeichenketten gespeichert. Deshalb muss für diesen Antworttyp immer eine Kodierungstabelle für die richtige Reihenfolge der Werte dokumentiert werden.
+
+### Bewertung
+
+Die Bewertung ist eine Variante des Antworttyps *Likert-Skala*. Mit der Bewertung wird über eine festgelegte Skala der gewünschte Wert abgefragt. Optional können für die beiden Extremwerte Beschriftungen angegeben werden.
+
+Das Ergebnis wird als Zahl gespeichert. Die Zahl entspricht dem Wert der ausgewählten Option beginnend bei 1. 
+
+### Net Promoter Score
+
+Der Typ Net Promoter Score ist eine spezielle elfstufige Liker-Skala, die zwischen zwei frei wählbaren Extremwerten festgelegt ist. Die offiziell als *Net Promoter Score* [@reichheld_one_2003] bezeichnete Eingabeform ist eine verzerrte Likert-Skala mit dem Mittelpunkt bei `7.5`. 
+
+Der Net Promoter Score wird immer als Ganzzahl im Intervall $0 \le s \le 10$ zurückgegeben.
+
+::: {.callout-warning}
+Der Net Promoter Score hat im Management-Umfeld eine grosse Verbreitung gefunden. Die Verwendung dieser Skala ist aber umstritten [@keiningham_longitudinal_2007]. Speziell die proklamierte Aussagekraft lässt sich nicht belegen [@fisher_good_2019; @grisaffe_questions_2007]. Von der verbreiteten isolierten Verwendung des Net Promoter Score nach der Methode von @reichheld_one_2003 wird deshalb abgeraten.
+
+Wird diese Eingabe als Likert-Skala verwendet, dann besteht ausser bei der Darstellung kein Unterschied zur *Einfachauswahl* oder der *Bewertung*.
+:::
+
+### Darstellung der Ergebnisse in Excel
+
+Die Ergebnisse der Formulare werden in einer Excel-Arbeitsmappe als Tabelle gespeichert. Die Antworten sind in der Spalte `ID` sequenziell durchnummeriert. Zusätzlich enthält die Tabelle zwei sog. *Zeitstempel* mit Datum und Uhrzeit des Beginns (`Startzeit`) und des Endes (`Fertigstellungszeit`) der Datenerfassung eines Formulars. Optional können die Namen und E-Mail-Adressen der ausfüllenden Person miterfasst werden. 
+
+Nach diesen Basisinformationen folgen die einzelnen Antworten für die Formularelemente. Die Werte in der gleichen Zeile entsprechen dabei den Werten aus dem gleichen Formular. Die Spaltenüberschriften sind Standardmässig der Fragetext. 
+
 ## Daten direkt eingeben
 
-Bei der direkten Eingabe von Daten muss zuerst eine Tabelle erstellt werden, in der die Daten gesammelt werden.
+Bei der direkten Eingabe von Daten muss zuerst die Ergebnistabelle manuell erstellt werden, um damit die Daten zu sammeln.
 
 Damit die Daten einheitlich erfasst werden, benötigt die Tabelle ein Schema. In Excel wird diese Schema über die Tabellenüberschriften definiert und kann bei einer späteren Verarbeitung weiter angepasst werden (s. @sec-chapter-daten-importieren).
-
-Wurde die Datentabelle mit einem Schema erstellt, dann können die Werte in die Tabelle eingetragen werden. Die Datenüberprüfung wird automatisch auf die neuen Werte angewendet. Daten werden der Tabellen hinzugefügt, indem in der Zeile unterhalb der Tabelle neue Werte eingetragen werden. Die Tabellenstruktur mit dem Schema wird automatisch erweitert.
 
 Ein einfaches Datenschema umfasst nur die Spaltenüberschriften, die erfasst werden sollen. Dazu müssen die Tabellenüberschriften definiert werden. Die Tabellenüberschriften werden in der ersten Zeile der Tabelle eingetragen. Überschriften für weitere Merkmale können zu einem späteren Zeitpunkt noch ergänzt werden. Anschliessend werden die Überschriften markiert und es wird für diesen Bereich eine **Tabelle** eingefügt. Hierbei muss die Option `Tabelle hat Überschriften` aktiviert werden (s. @fig-tabelle-erstellen).
 
 ![Tabelle erstellen](figures/tabelle_erstellen.png){#fig-tabelle-erstellen}
 
+Daten werden der Tabelle hinzugefügt, indem in der Zeile unterhalb der Tabelle neue Werte eingetragen werden. Die Tabellenstruktur mit dem Schema wird automatisch erweitert.
+
 ### Schemadefinition durch Datenüberprüfung
 
-Die einfache Schemadefinition stellt nicht sicher, dass die Werte einheitlich abgelegt werden. Das kann später die Datenverarbeitung behindern. Die Schemadefinition durch Datenüberprüfung erlaubt die Wertebereiche der gemessenen Merkmale vorab festzulegen. Dadurch lassen sich potentielle Fehler bereits bei der Dateneingabe vermeiden. Hierzu ist es notwendig, die Wertebereiche und die zugehörige Datenklasse einer Spalte zu bestimmen. 
+Die einfache Schemadefinition stellt nicht sicher, dass die Werte einheitlich abgelegt werden. Das kann später die Datenerfassung und die Datenverarbeitung behindern. Wurde die Datentabelle mit einem Überprüfungsschema erstellt, dann können die Werte in die Tabelle eingetragen und bei der Eingabe validiert werden.
+
+Die Schemadefinition durch Datenüberprüfung erlaubt die Wertebereiche der gemessenen Merkmale vorab festzulegen. Dadurch lassen sich potentielle Fehler bereits bei der Dateneingabe vermeiden. Hierzu ist es notwendig, die **Wertebereiche** und die zugehörige **Datenklasse** einer Spalte zu bestimmen. 
 
 ::: {.callout-tip}
 # Praxis
@@ -110,100 +218,3 @@ Im Gegensatz zu ordinalskalierten Wertebereichen, sollten nominalskalierte Werte
 
 Bei der Dateneingabe wird anschliessend ein Auswahlliste mit den zulässigen Werten, so dass die Werte nicht mehr direkt eingetippt werden müssen. Diese Auswahlliste kann unterbunden werden, wenn die Option `Zellendropdown` deaktiviert wird.
 
-## Daten mit Formularen sammeln {#sec-datacollection-forms}
-
-Die direkte Eingabe von Daten ist nur für kleine Datensätze mit wenigen Merkmalen geeignet. Bei grösseren Datensätzen ist die direkte Eingabe oft zu aufwändig und fehleranfällig. Für die strukturierte Dateneingabe von grösseren Datensätzen werden Formulare verwendet. 
-
-Im Gegensatz zur direkten Dateneingabe in Tabellen, werden die Daten in Formularen in *Fragen* mit vorgegebenen Antworttypen gesammelt. Der Antworttyp bestimmt, welche Werte für die Frage zulässig sind. 
-
-::: {.callout-note}
-In vielen Formularsystemen wird der *Antworttyp* als **Fragetyp** bezeichnet, obwohl die Frage immer in Text-Bildform präsentiert wird und der Typ durch die unterschiedlichen Antwortmöglichkeiten bestimmt wird.
-:::
-
-Durch das Festlegen des Antworttyps wird gleichzeigt der Wertebereich des gemessenen Merkmals definiert. Dadurch ergibt sich beim Erstellen eines Formulars das Datenschema automatisch.
-
-Excel hat kein eingenes Formularsystem. Stattdessen kann [Microsoft Forms](https://www.microsoft365.com/launch/forms) verwendet werden. Microsoft Forms ist ein Online-Formulardienst, das in Microsoft365 integriert ist. Forms sammelt die Eingaben in ein Formular in einer Excel Arbeitsmappe. Diese Formulare können über einen Web-Link geteilt werden und im Web-Browser ausgefüllt werden. Dadurch kann das Datensammeln auf verschiedene Personen verteilt werden.
-
-::: {.callout-note}
-Ein Formular kann in Microsoft Forms ein **Quiz** oder ein **Formular** sein. Ein Quiz ist ein Formular, bei dem die Antworten mit eine Punktzahl bewertet werden und ein Feedback erhalten können. Ein Formular fokussiert sich auf die reine Dateneingabe.
-:::
-
-Microsoft Forms unterstützt die folgenden Antworttypen:
-
-- Einfachauswahl
-- Mehrfachauswahl
-- Offene Texteingabe
-- Dateumseingabe
-- Likert-Skala
-- Bewertung
-- Net Promoter Score
-- Rangfolge
-- Datei-Upload
-
-Jede dieser Varianten hat die folgenden gemeinsamen Optionen:
-
-- Eine einleitende Frage oder Anweisung.
-- Ein optionaler Untertitel oder eine Beschreibung. (*Untertitel*)
-- Die Möglichkeit eine mathematische Formel zur Validierung des Wertebereichs anzugeben (*Mathematik*).
-- Das erzwingen einer Antwort (*Erforderlich*).
-- Eine Verzweigung zu einer anderen Frage, wenn eine bestimmte Antwort gegeben wird (*Verzweigung*).
-
-Die Unterschiede ergeben sich in den Antwortmöglichkeiten.
-
-### Einfachauswahl (*Auswahl*)
-
-Die Einfachauswahl ist ein Single-Choice-Antworttyp. Es sind nur die vorgegebenen Antwortmöglichkeiten möglich, von denen nur eine ausgewählt werden kann. Die Antwortmöglichkeiten können als Text oder als Bild angegeben werden. Die Antwortmöglichkeiten werden immer in einer Liste angezeigt. Dabei kann zwischen einem Auswahlmenu als *Dropdown*-Liste und frei anwählbaren Antwortmöglichkeiten (*Optionen*) gewählt werden. Die Reihenfolge der Antwortmöglichkeiten kann durch die Option `Optionen in zufälliger Reihenfolge` für jedes Formular zufällig angeordnet werden.
-
-Das Ergebnis der Einfachauswahl ist eine Zeichenkette der ausgewählten Option.
-
-### Mehrfachauswahl (*Auswahl*)
-
-Die Mehrfachauswahl erlaubt die Auswahl mehrerer Antwortmöglichkeiten, indem die Option `Mehrere Antworten` aktiviert wird. Dieser Antworttyp ist ansonsten identisch mit der Einfachauswahl.
-
-Das Ergebnis der Mehrfachauswahl ist eine Zeichenkette mit den ausgewählten Optionen. Wurden mehrere Antworten ausgewählt, dann werden die Optionen durch ein Semikolon getrennt.
-
-### Offene Texteingabe (*Text*)
-
-Die offene Texteingabe erlaubt einzeilige und mehrzeilige (*lange*) *offene Antworten* möglich sind. Damit können un- oder semistrukturierte Daten erfasst werden. Diese Antwortmöglichkeit lässt sich auf Zahlenwerte und Zahlenintervalle eingeschränken.
-
-### Datei hochlanden 
-
-Die zweite Variante für *offene Antworten* ist das Hochladen von Dateien. Mit diesem Antworttyp lassen sich Bilder, Videos oder Tonaufnahmen leicht erfassen.
-
-### Datumseingabe (*Datum*)
-
-Diese Eingabe ist eine Variante der *offenen Texteingabe* zur Eingabe eines Datums. Diese Eingabe wird durch die Option ergänzt, das Datum über eine Kalenderdarstellung  auszuwählen.
-
-Das eingegebene Datum wird als Zahl gespeichert und als Datum dargestellt. 
-
-### Rangfolge
-
-Die Rangfolge erlaubt es, dass die angebotenen Antwortmöglichkeiten in eine Reihenfolge gebracht werden können. Bei diesem Antworttyp müssen die Werte sortiert werden und die Sortierung wird als Antwort gespeichert. 
-
-Bei der Darstellung werden die Antwortmöglichkeiten in einer Liste angezeigt und für jedes Formular neu sortiert.
-
-Das Ergebnis der Rangfolge ist eine Zeichenkette mit der Reihung der Optionen. Die Optionen werden durch ein Semikolon getrennt. Im Ergebnis lässt sich die Rangfolge nicht von einer Mehrfachauswahl unterscheiden.
-
-### Likert-Skala (*Likert*)
-
-Der Antworttyp *Likert* setzt eine Fragebatterie mit Likert-Skalen um. Darüber lässt sich ein *semantisches Differential* erheben. 
-
-Die Anworten dieser Fragebatterie werden wie mehrere Einfachauswahlen als Zeichenketten gespeichert. Deshalb muss für diesen Antworttyp immer eine Kodierungstabelle für die richtige Reihenfolge der Werte dokumentiert werden.
-
-### Bewertung
-
-Die Bewertung ist eine Variante des Antworttyps *Likert-Skala*. Mit der Bewertung wird über eine festgelegte Skala der gewünschte Wert abgefragt. Optional können für die beiden Extremwerte Beschriftungen angegeben werden.
-
-Das Ergebnis wird als Zahl gespeichert. Die Zahl entspricht dem Wert der ausgewählten Option beginnend bei 1. 
-
-### Net Promoter Score
-
-Der Typ Net Promoter Score ist eine spezielle elfstufige Liker-Skala, die zwischen zwei frei wählbaren Extremwerten festgelegt ist. Die Definition des Net Promoter Scores ist eine verzerrte Likert-Skala mit dem Mittelpunkt bei `7.5`.
-
-Der Net Promoter Score wird immer als Ganzzahl im Intervall $0 \le s \le 10$ zurückgegeben.
-
-### Darstellung der Ergebniss in Excel
-
-Die Ergebnisse der Formulare werden in einer Excel-Arbeitsmappe gespeichert. Die Ergebnisse werden in einer Tabelle gespeichert. Die Antworten sind in der Spalte `ID` sequenziell durchnummeriert. Zusätzlich enthält die Tabelle zwei sog. *Zeitstempel* mit Datum und Uhrzeit des Beginns (`Startzeit`) und des Endes (`Fertigstellungszeit`) der Datenerfassung. Optional können die Namen und E-Mail-Adressen der ausfüllenden Person miterfasst werden. 
-
-Nach diesen Basisinformationen folgen die einzelnen Antworten für die Formularelemente. Die Werte in der gleichen Zeile entsprechen dabei den Werten aus dem gleichen Formular. Die Spaltenüberschriften sind Standardmässig der Fragetext. 
