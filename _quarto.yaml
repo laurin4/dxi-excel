@@ -9,6 +9,9 @@ crossref:
   eq-prefix: Formel # (default is "Equation")
   prp-title: Satz
 
+execute: 
+  freeze: auto
+
 book:
   title: Einführung in die Datenwissenschaft mit Excel
   author: 
