@@ -18,7 +18,7 @@ Excel's Desktop Version ohne Abonnement wurde auf dem Stand von Juni 2019 eingef
 Dieses Buch setzt die aktuelle Version von Excel365 voraus. In den folgenden Kapiteln ist also immer Excel365 gemeint, wenn schlicht von Excel geschrieben wird. Die meisten Beispiele und Konzepte lassen sich in der Desktop-Version *ohne Abonnement* nicht umsetzen. Viele Beispiele lassen sich mit der Web- oder Mobilversion nachvollziehen, diesen Versionen fehlt allerdings der Importer für Daten aus anderen Dateien, der in @sec-chapter-daten-importieren behandelt wird und für viele Beispiele Voraussetzung ist.
 
 ::: {.callout-tip}
-## Ist richtige Excel Version installiert
+## Ist die richtige Excel Version installiert
 Mit einem einfachen Test lässt sich überprüfen, ob eine geeignete Excel Version installiert ist: 
 
 1. Eine beliebige Zelle mit der Maus ausgewählt. 

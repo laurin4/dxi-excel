@@ -234,7 +234,7 @@ Auf diese Weise lassen sich konstante Werte in Formeln einbauen.
 
 ### Tabellenadressen
 
-Spalten und einzelne Werte können über die Tabellenadressierung abgefragt werden [@microsoft_support_using_2013]. Das Ergebnis einer solchen Adressierung ist immer ein *dynamisches Feld* bzw. ein *dynamischer Bereich* (s. [Abschnitt @sec-dynamisches-feld]).
+Spalten und einzelne Werte können über die Tabellenadressierung abgefragt werden [@microsoft_support_using_2023]. Das Ergebnis einer solchen Adressierung ist immer ein *dynamisches Feld* bzw. ein *dynamischer Bereich* (s. [Abschnitt @sec-dynamisches-feld]).
 
 ::: {.callout-note}
 Jede Tabellenadresse kann auch als Arbeitsblattadresse dargestellt werden. Umgekehrt ist dies nicht möglich.
