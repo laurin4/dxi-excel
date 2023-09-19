@@ -152,7 +152,7 @@ Excel kennt zwei Arten von Tabellen:
 
 *Pivot-Tabellen* sind Arbeitsmappenelemente aber ***keine Datenstrukturen***. Deshalb werden Pivot-Tabellen in diesem Buch ähnlich einer Visualisierung als *Darstellungsform* behandelt. 
 
-## Adressierung von Datenstrukturen
+## Adressierung von Datenstrukturen {#sec-adressierung-ds}
 
 ::: {#def-bezug}
 Ein **Bezug** ist die Adresse eines Bereichs.
