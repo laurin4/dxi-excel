@@ -9,15 +9,14 @@ execute:
 
 Keine Unterscheidung zwischen Konstanten und Variablen.
 
-### Adressen
 
-### Bereiche
-
-### Dynamische Bereiche {#sec-dynamisches-feld}
+### Dynamische Bereiche {#sec-dynamisches-feld}
 
 ### Benannte Bereiche
 
-### Tabellen
+::: {.callout-note}
+Eine Tabelle ist ein spezieller benannter Bereich.
+:::
 
 ## Funktionen {#sec-funktionen}
 
@@ -26,6 +25,8 @@ Keine Unterscheidung zwischen Konstanten und Variablen.
 Excel hat eine Anzahl vordefinierter Operatoren. Diese Operatoren haben keine direkte Entsprechung als Funktion. 
 
 ### Substitution über Funktionspfade
+
+### Substitution mit `LET()`
 
 ## Funktionsketten
 
@@ -40,7 +41,7 @@ Normalerweise werden leere Zellen als Ergebnis einer Funktion durch `0` ersetzt.
 LAMBDA Funktion
 
 Strategie der Funktionsentwicklung
-- funktion als Funktionspfad
+- Funktion als Funktionspfad
 - Funktion als Funktionskette
 - Funktion als LAMBDA Funktion
 - Funktion als benanntes Element
