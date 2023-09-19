@@ -232,7 +232,7 @@ Ein Beispiel für eine absolute Adresse ist `$A$1`. Diese Adresse bezeichnet die
 
 Auf diese Weise lassen sich konstante Werte in Formeln einbauen.
 
-### Tabellenadressen
+### Tabellenadressen {#sec-tabellenadressen}
 
 Spalten und einzelne Werte können über die Tabellenadressierung abgefragt werden [@microsoft_support_using_2023]. Das Ergebnis einer solchen Adressierung ist immer ein *dynamisches Feld* bzw. ein *dynamischer Bereich* (s. [Abschnitt @sec-dynamisches-feld]).
 
