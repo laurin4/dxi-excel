@@ -17,9 +17,30 @@ Excel's Desktop Version ohne Abonnement wurde auf dem Stand von Juni 2019 eingef
 
 Dieses Buch setzt die aktuelle Version von Excel365 voraus. In den folgenden Kapiteln ist also immer Excel365 gemeint, wenn schlicht von Excel geschrieben wird. Die meisten Beispiele und Konzepte lassen sich in der Desktop-Version *ohne Abonnement* nicht umsetzen. Viele Beispiele lassen sich mit der Web- oder Mobilversion nachvollziehen, diesen Versionen fehlt allerdings der Importer für Daten aus anderen Dateien, der in @sec-chapter-daten-importieren behandelt wird und für viele Beispiele Voraussetzung ist.
 
+::: {.callout-tip}
+## Ist richtige Excel Version installiert
+Mit einem einfachen Test lässt sich überprüfen, ob eine geeignete Excel Version installiert ist: 
+
+1. Eine beliebige Zelle mit der Maus ausgewählt. 
+2. Es werden die drei Zeichen ``=HS` eingegeben.
+
+Nun sollte der Funktionsvorlschag für die Funktion `HSTAPELN` unterhalb der Eingabe erscheinen. Wird kein Funktionsvorschlag angezeigt, dann ist eine zu alte Version von Excel installiert.
+
+Die Eingabe wird mit `ESC` abgebrochen.
+
+Erscheint kein Funktionsvorschlag, dann muss ein zweiter Test erfolgen.
+
+1. Eine beliebige Zelle mit der Maus ausgewählt.
+2. Es werden die Zeichen `=seq` eingegeben. 
+
+Nun sollte der Funktionsvorlschag für die Funktion `SEQUENZ` unterhalb der Eingabe erscheinen. In diesem Fall muss nur ein kleines Update von Microsoft365 installiert werden. 
+
+Erscheint kein Funktionsvorschlag, dann ist eine veraltete Version von Excel installiert. Diese muss zuerst vollständig deinstalliert werden, bevor die neue Version von Microsoft365 installiert werden kann. Beim vollständigen Deinstallieren leider müssen auch alle Einstellungen **aller** Microsoft365 Anwendungen entfernt werden.
+:::
+
 ## Excel-Versionen und Betriebssysteme
 
-Excel365 unterscheidet sich für MacOS und Windows. Im Rahmen dieses Buchs stellt das keine Einschränkung dar, denn die Unterschiede sind gering.
+Excel365 unterscheidet sich leicht für MacOS und Windows. Im Rahmen dieses Buchs stellt das keine Einschränkung dar, denn die Unterschiede sind gering.
 
 Die auffälligsten Unterschiede betreffen den Importer und die bedingte Formatierung.
 
@@ -28,7 +49,7 @@ Die auffälligsten Unterschiede betreffen den Importer und die bedingte Formatie
 
 ::: {.callout-warning}
 ## MacOS vs. Windows
-In den (wenigen) Fällen, in denen sich die Excel-Versionen auf den beiden Betriebssystemen unterscheiden, wird der Unterschied durch eine *MacOS vs. Windows*-Box wie diese gesondert hervorgehoben. Das gleiche gilt für die Eigenheiten, die nur auf einem der beiden Betriebssyeme vorkommen. 
+In den (wenigen) Fällen, in denen sich die Excel-Versionen auf den beiden Betriebssystemen unterscheiden, wird der Unterschied durch eine *MacOS vs. Windows*-Box - wie diese hier - gesondert hervorgehoben. Das gleiche gilt für die Eigenheiten, die nur auf einem der beiden Betriebssyeme vorkommen. 
 :::
 
 ::: {.callout-warning}
