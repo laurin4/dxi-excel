@@ -67,3 +67,4 @@ index.pdf
 index.toc
 index.out
 **/*.rmarkdown
+**/*_files/
