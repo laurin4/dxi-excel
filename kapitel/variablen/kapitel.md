@@ -5,6 +5,10 @@ execute:
 
 # Variablen, Funktionen und Operatoren {#sec-chapter-variablen-fkts-ops}
 
+::: {.callout-warning}
+## Work in Progress
+:::
+
 ## Variablen
 
 Keine Unterscheidung zwischen Konstanten und Variablen.
