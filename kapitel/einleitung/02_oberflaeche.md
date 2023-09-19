@@ -53,7 +53,7 @@ Für die tägliche Arbeit sind die folgenden Kategorien des Menubalkens am wicht
 
 Die Funktionsleiste unterstützt die Arbeit mit der *aktiven Zelle*. Die Funktionsleiste wird verwendet, wenn mit speziellen Werten oder mit Komplexen Formeln gearbetiet wird.
 
-![Die Excel Funktionsleist](figures/excel_funktionsleiste.png){#fig-funktionsleiste}
+![Die Excel Funktionsleiste](figures/excel_funktionsleiste.png){#fig-funktionsleiste}
 
 Die Funktionsleiste hat 6 Bedienfelder.
 
