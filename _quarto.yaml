@@ -12,11 +12,16 @@ crossref:
 execute: 
   freeze: auto
 
+
 book:
   title: Einführung in die Datenwissenschaft mit Excel
   author: 
   - name: Christian Glahn  
   page-navigation: true
+
+  repo-url: https://github.com/dxiai/dxi-excel
+  repo-actions: 
+  - issue
 
   chapters:
   - index.qmd
