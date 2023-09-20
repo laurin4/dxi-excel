@@ -48,9 +48,21 @@ Das Ergebnis eines Imports ist immer eine *Tabelle*.
 
 ## Eine Datenverbindung herstellen
 
-1. Daten abrufen
-2. Datenquelle auswählen
-3. Daten überprüfen
+Eine Datenverbindung wird über das Kommando `Daten abrufen (Power Query)` ausgelöst. Das Kommando ist in der Gruppe **Daten** im Abschnitt **Daten abrufen und transformieren** zu finden. Das Kommando bereitet den Import durch Power Query vor, indem zuerst das Dateiformat und anschliessend die zugehörige Datenquellen ausgewählt wird. Nach diesen Schritten kann Excel die Daten *landen* oder in Power Query überprüfen und *transformieren* (s. @fig-power-query-laden-oder-transformieren).
+
+::: {.callout-tip}
+## Praxis
+Die Daten sollten nur in Ausnahmefällen ohne Kontrolle gelanden werden. In der Regel sollten die Daten in Power Query überprüft und transformiert werden. Dadurch wird sichergestellt, dass die Daten korrekt importiert werden.
+:::
+
+![Laden oder Transformieren-Auswahl beim Import einer Excel Arbeitsmappe](figures/daten_import_navigator.png){#fig-power-query-laden-oder-transformieren}
+
+Wird die Option `Daten transformieren` ausgewählt, öffnet sich der Power Query Editor. In diesem Editor können die Daten überprüft und transformiert werden. Die Daten werden in einer Vorschau angezeigt. Die Vorschau zeigt die ersten 1000 Zeilen der Daten an. 
+
+Standardmässig werden drei bzw. bei Excel Arbeitsmappen vier Schritte in Power Query konfiguriert, wobei der letzte Schritt immer `Geänderter Typ` (Windows) bzw. `geänderter Spaltentyp` (MacOS) ist. Dieser Schritt enthält die Schemadefinition. Power Query versucht das Schema automatisch zu erkennen. Das funktioniert besonders bei Zahlenwerten nicht immer zuverlässig. Deshalb muss das Schema immer kontrolliert und gegebenefalls angepasst werden. 
+
+![Schemaanpassung mit Power Query ](figures/power_query_spaltentyp_aendern.png){#fig-power-query-editor-scheme}
+
 4. Daten gegebenenfalls transformieren
 5. Daten importieren
 
@@ -63,7 +75,6 @@ Excel betrachtet jeden Datenimport als Sicherheitsproblem. Daher werden Datenver
 
 Wird die Datenverbindung nicht aktiviert, werden Funktionen die auf die Daten zugreifen nicht ausgeführt, sondern nur die Ergebnisse der letzten Ausführung angezeigt.
 :::
-
 
 ## Daten aktualisieren
 
@@ -81,15 +92,15 @@ Die importierte Struktur darf **nicht verändert** werden. Das bedeutet, dass in
 
 ## Datenverbindung anpassen
 
-Gelegentlich ändert sich der Ort einer Datenquelle. Sehr häufig passiert das, wenn eine Datei in einen anderen Ordner verschoben wird. In solchen Fällen muss die Datenverbindung angepasst werden. Dazu muss in Power Query die Datenquelle angepasst werden.
-
-VORGEHENSWEISE
+Gelegentlich ändert sich der Ort einer Datenquelle. Sehr häufig tritt diese Situation ein, wenn eine Datei in einen anderen Ordner verschoben wird. In solchen Fällen muss die Datenverbindung angepasst werden. Dazu muss in Power Query die Datenquelle angepasst werden.
 
 1. Powerquery öffnen
-2. Schritt "Quelle" ausählen
+2. Einstellungen im Schritt "Quelle" auswählen (s. @fig-power-query-editor-datenquelle-anpassen)
 2. Pfad zur Datenquelle anpassen
-3. Schema überprüfen
-4. Daten aktualisieren
+
+Nachdem die richtige Datei ausgewählt wurde, sollte immer das Schema kontrolliert werden, ob die Änderung keine Auswirkungen auf das Schema hat. Wird dieser Schritt übersprungen, kann es zu Fehlern beim Import kommen und im schlimmsten Fall werden die Formeln in der Arbeitsmappe durch eine Fehlerfortpflanzung zerstört.
+
+Abschliessend kann wieder das Kommando **Schliessen & Landen** ausgeführt werden.
 
 ![Power Query: Quelle Anpassen (Ausschnitt)](figures/power_query_quelle_anpassen.png){#fig-power-query-editor-datenquelle-anpassen}
 
@@ -99,12 +110,14 @@ Alle Datenverbindungen werden auch im Dialog **Abfragen & Verbindungen** (s. @fi
 
 ::: {.callout-warning}
 ## MacOS vs. Windows
-Grundsätzlich lassen sich die Datenquellen im Dialog **Abfragen & Verbindungen** anpassen. Die Windows Version von Excel öffent über diesen Weg den Power Query Editor. Die Version für MacOS macht das nicht. Um Änderungen an einer Abfrage vorzunehmen, muss die Abfrage in Power Query über das Kommando `Daten abrufen` geöffnet werden (s. @fig-power-query-unter-macos-starten).
+Unter Windows lassen sich die Datenquellen im Dialog **Abfragen & Verbindungen** anpassen. Die Windows Version von Excel von dort immer den Power Query Editor. Die Version für MacOS macht das nicht. Um Änderungen an einer Abfrage vorzunehmen, muss die Abfrage in Power Query über das Kommando `Daten abrufen` geöffnet werden (s. @fig-power-query-unter-macos-starten).
 
 ![Power Query unter MacOS starten](figures/power_query_macos_starten.png){#fig-power-query-unter-macos-starten}
 ::: 
 
 ## Daten beim Import transformieren {#sec-daten-import-transformieren}
+
+Eine besondere Eingenschaft von Power Query ist das Transformieren von Daten beim Import. Dadurch lassen sich Daten aus verschiedenden Quellen korrekt importieren.
 
 ### Datenschema anpassen
 
