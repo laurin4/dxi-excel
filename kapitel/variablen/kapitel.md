@@ -46,7 +46,7 @@ Der Vorteil des Vektorisierens ist, dass der Bereich durch das Einfügen neuer Z
 ::: {.callout-tip}
 ## Praxis
 
-Weil Tabellen automatisch vektorisiert werden, ist es einfacher Werte in einer Tabelle zu erfassen bzw. zu importieren (s. @sec-chapter-daten-importieren) und anschliessend über die Tabellenadressierung auf die Werte zu verweisen.
+Weil Tabellen automatisch vektorisiert werden, ist es einfacher Werte in einer Tabelle zu erfassen bzw. als Tabelle zu importieren (s. @sec-chapter-daten-importieren) und anschliessend über die Tabellenadressierung auf die Werte zu verweisen.
 :::
 
 ### Benannte Bereiche

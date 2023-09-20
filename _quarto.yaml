@@ -45,7 +45,7 @@ book:
     # Woche 4
     - kapitel/datentypen/kapitel.md
 
-    # Woche 5
+    # Woche 5 - Thema Dateiformate
     - kapitel/daten-importieren/kapitel.md
 
   - part: "Mathematik der Daten"
