@@ -33,6 +33,7 @@ book:
     - kapitel/einleitung/kapitel.md
     - kapitel/einleitung/excel-versionen.md
     - kapitel/einleitung/02_oberflaeche.md
+    - kapitel/einleitung/01_jargon.md
   
   - part: "Datenquellen"
     chapters:
