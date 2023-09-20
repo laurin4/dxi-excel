@@ -37,6 +37,8 @@ Microsoft Forms unterstützt die folgenden Antworttypen:
     - Bewertung
     - Net Promoter Score
 
+![MS Forms Fragetypmenu](figures/ms_forms_fragetypen.png){#fig-formular-antworttypen}
+
 Jede dieser Varianten hat die folgenden gemeinsamen Optionen:
 
 - Eine einleitende Frage oder Anweisung.
