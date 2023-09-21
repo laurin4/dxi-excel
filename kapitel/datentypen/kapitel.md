@@ -287,6 +287,42 @@ Es ist nicht möglich mehrere Spalten einer Tabellen *gleichzeitig* gezielt zu a
 Die Adressierung aus @exm-tabellenbereich kann nicht angepasst werden, so dass nur `Spalte1` und `Spalte3` adressiert werden, ausser die Spalten `Spalte1` und `Spalte3` stehen direkt nebeneinander.
 :::
 
+#### `Diese Zeile`-Operator
+
+Einzelne Zeilen einer Tabelle können mit dem `Diese Zeile`-Operator adressiert werden. Der `Diese Zeile`-Operator wird mit dem Wert `[#Diese Zeile]` oder mit `@` angegeben. Dieser Operator reduziert die Tabelle auf eine einzelne Zeile und wählt anschliessend die gewünschte Spalte aus. `Diese Zeile` bedeutet für Excel die aktuelle Zeile des Arbeitsblatts. 
+
+> ::: {#exm-diese-zeile}
+> ## `Diese Zeile`-Operator für eine Tabellenzelle
+> ```
+> = Tabelle[@Spalte]
+> ```
+> oder 
+> 
+> ```
+> = @Tabelle[Spalte]
+> ```
+> :::
+
+Der Operator ist speziell für die Verwendung in Formeln in Tabellenzellen gedacht. Obwohl der Operator in allen Formeln eingesetzt werden kann, sollte der Einsatz auf Formeln beschränkt werden, die sich in einer Tabelle befinden.
+
+::: {.callout-warning}
+Der `Diese Zeile`-Operator kann nicht auf Tabellen angewendet werden, um eine ganze Zeile zu adressieren. Es darf immer nur eine einzelne Zelle adressiert werden. Die Adressierung `@Tabelle` ist also ungültig.
+::: 
+
+::: {.callout-warning}
+Der `Diese Zeile`-Operator ist immer relativ zum Arbeitsblatt und nicht relativ zur aktuellen Tabelle. Es muss nur der Zeilenindex gleich sein, die Zielzelle kann sich auf einem anderen Arbeitsblatt befinden.
+:::
+
+Wird der `Diese Zeile`-Operator in Tabellen unterschiedlicher Länge verwendet, dann können zwei Fälle eintreten: 
+
+1. Ist die adressierte Tabelle kürzer als die adressierende Tablle, dann wird für die Zeilen, die keine Entsprechung in der adressierten Tabelle haben, der Fehler `#WERT!` zurückgegeben.
+2. Ist die adressierte Tabelle länger als die adressierende Tablle, dann werden alle überzähligen Zeilen *ignoriert*.
+
+::: {.callout-tip}
+## Praxis
+Der `Diese Zeile`-Operator kann nur auf eine einzelne Zelle in der gleichen Zeile auf einem Arbeitsblatts angewendet werden. Wegen dieser Einschränkung des `Diese Zeile`-Operators sollten alle Tabellen so gestaltet werden, dass sie in der ersten Zeile des Arbeitsblatts beginnen. Dadurch kann der `Diese Zeile`-Operator in allen Tabellen verwendet werden.
+:::
+
 #### Überschriften adressieren
 
 Eine Excel Tabelle hat immer Spaltenüberschriften. Diese Überschriften können ebenfalls über die Tabellenadressierung adressiert werden. Dazu wird als Spaltenname der Wert `#Kopfzeilen` verwendet. 
