@@ -5,7 +5,7 @@ abstract: |
     Dieses Kapitel befasst sich mit der Anwendung der Aussagenlogik in Excel. Es werden die logischen Operatoren NICHT, UND, ODER und XODER behandelt. Auf dieser Grundlage werden die wichtigsten Vergleichsoperation zum Formulieren logischer Ausdrücke vorgestellt. Das Kapitel schliesst mit der Anwendung von Fallunterscheidungen.
 
     Es werden die folgenden Funktionen behandelt:
-    `NICHT()`, `UND()`, `ODER()`, `XODER()`, `WENN()`, `WENNS()`, `ERSTERWERT()`, `WENNFEHLER()`, `FEHLER.TYP()`, `ISTFEHLER()`, `XVERWEIS()`, `IDENTISCH()`, `FILTER()`, `SORTIEREN()`, `SORTIERENNACH()` und `SPALTENWAHL()`
+    `NICHT()`, `UND()`, `ODER()`, `XODER()`, `WENN()`, `WENNS()`, `ERSTERWERT()`, `WENNFEHLER()`, `FEHLER.TYP()`, `ISTFEHLER()`, `XVERWEIS()`, `XVERGLEICH()`, `IDENTISCH()`, `FILTER()`, `SORTIEREN()`, `SORTIERENNACH()` und `SPALTENWAHL()`
 
 execute: 
   echo: false
@@ -134,7 +134,12 @@ Die Vergleichsoperatoren zeigen die Unterschiede zweier Zeichenketten bezüglich
 
 Weil Excel für Vergleiche die nicht-druckbaren Zeichen mit Ausnahme des Leerzeichens und des Tabulators ignoriert, gibt der Vergleichsoperator `=` `WAHR` auch für Zeichenketten zurück, die unterschiedliche nicht-druckbare Zeichen enthalten. Das gleiche Problem entsteht beim Vergleich von unterschiedlicher Gross- und Kleinschreibung. Um auch diese Unterschiede zu erkennen, müssen wir die Funktion `IDENTISCH()` verwenden. Diese Funktion vergleicht die Zeichenketten Zeichen für Zeichen und liefert nur dann `WAHR` zurück, wenn die Zeichenketten exakt gleich sind.
 
-BEISPIEL
+::: {#exm-identisch}
+## Anwendung der `IDENTISCH()` Funktion als Vergleichsoperator.
+```
+= WENN(IDENTISCH("A"; "a"); "Gleich"; "Ungleich")
+```
+:::
 
 ## Komplexe logische Ausdrücke und Datenstrukturen {#sec-vector-logic}
 
@@ -248,11 +253,15 @@ Eine solche geschachtelte Fallunterscheidung wird als *Entscheidungsbaum* bezeic
 
 Die Funktion `WENN()` ist eine *einfache* Fallunterscheidung. In vielen Excel-Arbeitsmappen existieren geschachtelte Aufrufe von `WENN()`-Funktionen. Diese Aufrufe machen die Formeln nicht nur schwer lesbar, sondern auch fehleranfällig und ineffizient. Deshalb sollten geschachtelte Fallunterscheidungen unbedingt vermieden werden. Mit der Funktion `WENNS()` lassen sich geschachtelte Fallunterscheidungen vermeiden, indem alle Fallunterscheidungen in einem einzigen Funktionsaufruf zusammengefasst werden. 
 
-> **Merke:** geschachtelte Fallunterscheidungen mit `WENN()` unbedingt vermeiden!
+::: {.callout-note}
+## Merke
+Geschachtelte Fallunterscheidungen mit `WENN()` unbedingt vermeiden!
+:::
 
 Die Funktion `WENNS()` erwartet Parameterpaare, bestehend aus einem logischen Ausdruck und dem Ergebnis, falls dieser logische Ausdruck `WAHR` ergibt. Die Funktion kann bis zu 127 Parameterpaare verarbeiten, so dass sich auch sehr komplexe Fallunterscheidungen mit dieser Funktion abbilden lassen.
 
-(*Beispiel 1*) Das folgende Beispiel zeigt die Verwendung der Funktion `WENNS()` für die geschachtelte Fallunterscheidung aus dem Abschnitt `WENN`.
+::: {#exm-wenns-vereinfachen}
+Das folgende Beispiel zeigt die Verwendung der Funktion `WENNS()` für die geschachtelte Fallunterscheidung aus dem Abschnitt `WENN`.
 
 ```
 = WENNS(A2:A3 = 1; "Eins"; 
@@ -263,11 +272,14 @@ Die Funktion `WENNS()` erwartet Parameterpaare, bestehend aus einem logischen Au
 
 Das Beispiel bildet aber noch nicht die vollständige Fallunterscheidung ab. Es fehlt noch der Fall, dass keiner der logischen Ausdrücke `WAHR` ergibt. Leider kann `WENNS()` ausschliesslich logische Ausdrücke mit ihren Ergebnissen verbinden. 
 
-> **Merke:** `WENNS()` kann nur logische Ausdrücke mit ihren `WAHR`-Ergebnissen verbinden.
+::: {.callout-note}
+## Merke 
+`WENNS()` kann nur logische Ausdrücke mit ihren `WAHR`-Ergebnissen verbinden.
+:::
 
 Anders als bei `WENN()` gibt es keine direkte Möglichkeit, ein Ergebnis festzulegen, falls alle logische Ausdrücke `FALSCH` ergeben. Um ein solches Verhalten zu erzeugen, wird ausgenutzt, dass die Funktion `WENNS()` immer einen wahren logischen Ausdruck mit einem Ergebnis verknüpft. Weil die logischen Ausdrücke in der Reihenfolge ausgewertet werden, wie sie in der Funktion angegeben sind, muss der letzte logische Ausdruck alle Fälle abdecken, die von keinem anderen der vorangegangen logischen Ausdrücke akzeptiert wurden. Der einfachste logische Ausdruck, der immer wahr ist, ist der Wahrheitswert `WAHR`. Deshalb wird dieser Wert als letzter logischer Ausdruck für `WENNS()` verwendet.
 
-Mit diesem Wissen lässt sich das erste Beispiel mit `WENNS()` vervollständigen:
+Mit diesem Wissen lässt sich das Beispiel mit `WENNS()` vervollständigen:
 
 ```
 = WENNS(A2:A3 = 1; "Eins"; 
@@ -277,14 +289,18 @@ Mit diesem Wissen lässt sich das erste Beispiel mit `WENNS()` vervollständigen
         WAHR; "Ungültig")
 ```
 
-Diese Formel prüft die Werte in `A2:A3` auf Gleichheit mit den Werten `1`, `3`, `4` und `8`. Für diese Zahlen wird die zugehörige Zahlwert als Zeichenkette ausgegeben. Falls keiner dieser Werte gefunden wird, wird der Wert `Ungültig` zurückgegeben. 
+Diese Formel prüft die Werte in `A2:A3` auf Gleichheit mit den Werten `1`, `3`, `4` und `8`. Für diese Zahlen wird die zugehörige Zahlwert als Zeichenkette ausgegeben. Falls keiner dieser Werte gefunden wird, wird der Wert `Ungültig` zurückgegeben.
+:::
 
 Die Fallunterscheidung mit `WENNS()` endet beim ersten logischen Ausdruck, der `WAHR` ergibt. Die Funktion prüft der Reihe nach alle angegebenen logischen Ausdrücke. Sobald einer dieser Ausdrücke `WAHR` ist, wird der zugehörige Ergebniswert ausgegeben und die Funktion wird beendet. Diese Eigenschaft begründet, dass die logischen Ausdrück nur die Fälle prüfen müssen, die von den vorangegangenen logischen Ausdrücken nicht abgedeckt wurden.
 
-(*Beispiel 2) Das folgende komplexe Beispiel zeigt, wie die Fallunterscheidung mit `WENNS()` vereinfacht werden kann.
+::: {#exm-vereinfachte-fallunterscheidung}
+## Fallunterscheidung mit `WENNS()` vereinfachen
+
+Gegeben ist die Formel mit geschachtelten Entscheidungen.
 
 ```
-WENN(J2>=O2;
+= WENN(J2>=O2;
     (WENN(J2>L2;
           0;
           WENN(J2<=L2;
@@ -352,7 +368,7 @@ Diese Formel ist wesentlich einfacher zu lesen und zu verstehen. Beim Durchgehen
   )
 ```
 
-Diese Formel hat jedoch den Makel, dass der letzte Fall `WAHR` keine Konstante abbildet. Besser wäre es, wenn der zweite und der letzte Fall vertauscht wären, so dass der Wert `0` der letzte Wert ist. Dazu müssen die logischen Ausdrücke umorganisiert werden. Bei der Umorganisation ist die Reihenfolge der logischen Ausdrücke zu beachten: Die letzten beiden Fälle sind nicht umabhängig vom logischen Ausdruck `J2>L2`. Beim Umorganisieren darf diese Abhängigkeit nicht verloren gehen.
+Diese Formel hat noch den Makel, dass der letzte Fall `WAHR` keine Konstante abbildet. Besser wäre es, wenn der zweite und der letzte Fall vertauscht wären, so dass der Wert `0` der letzte Wert ist. Dazu müssen die logischen Ausdrücke umorganisiert werden. Bei der Umorganisation ist die Reihenfolge der logischen Ausdrücke zu beachten: Die letzten beiden Fälle sind nicht umabhängig vom logischen Ausdruck `J2>L2`. Beim Umorganisieren darf diese Abhängigkeit nicht verloren gehen.
 
 ```
 = WENNS(J2<O2; 100; 
@@ -363,6 +379,7 @@ Diese Formel hat jedoch den Makel, dass der letzte Fall `WAHR` keine Konstante a
 ```
 
 Diese Formel ist deutlich einfacher und weniger Fehleranfällig als die ursprüngliche Formel mit geschachtelten `WENN()`-Funktionen. Es lassen sich auch weitere Fälle hinzufügen, ohne dass die Formel komplexer wird. Dabei ist zu beachten, dass diese Fälle *vor* dem Fall `WAHR` angegeben werden müssen.
+:::
 
 ### Nicht erreichbare Entscheidungen
 
@@ -583,9 +600,11 @@ Der Algorithmus zum Selektieren von Vektoren ist durch die folgenden Schritte de
 5. Wir wählen die einzelnen Vektoren mit der folgenden Formel an der Adresse A2 aus.
 
 ::: {#exm-excel-selektion}
+## Selektion von Vektoren in Excel
 ```
 =SPALTENWAHL(Stichprobendaten!$B$2#; XVERGLEICH(A1:C1; Stichprobendaten!$B$1#))
 ``` 
+:::
 
 Der Vorteil dieser Strategie ist, dass die Selektion individuelle, nicht-zusammenhängende Vektoren selektieren kann und nicht auf Tabellen beschränkt ist.
 
@@ -596,12 +615,10 @@ Excel kennt zwei Funktionen zum Sortieren:
 - `SORTIEREN()`
 - `SORTIERENNACH()`
 
-SORTIEREN NACH
-
-Für allgemeine Sortierungen nach mehreren Vektoren stellt Excel die Funktion `SORTIERENNACH()` zur Verfügung.
+Die Funktion `SORTIEREN()` sortiert einen Bereich zeilen- oder spaltenweise. Für allgemeine Sortierungen nach mehreren Vektoren stellt Excel die Funktion `SORTIEREN()` zur Verfügung. 
 
 ::: {.callout-note}
-**Excels `SORTIEREN()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
+**Excels `SORTIERENNACH()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
 
 -  `Matrix` - der zu sortierende Bereich, der *keine* Matrix sein muss.
 - `Sortierindex` - die Spalten- oder Zeilennummer, nach der sortiert werden soll. Standardmässig wird die erste Spalte bzw. die erste Zeile angenommen. 
@@ -610,6 +627,8 @@ Für allgemeine Sortierungen nach mehreren Vektoren stellt Excel die Funktion `S
 :::
 
 Die Funktion ermöglicht es, mehrere Vektoren auf einmal nach **mehreren** gemeinsamen Kriterien zu sortieren. Dazu müssen zuerst die Sortierkriterien identifiziert werden. 
+
+Die Funktion `SORTIERENNACH()` deckt den Spezialfall ab, wenn die Sortierung nach einem externen Kriterium erfolgen soll. Während `SORTIEREN()` erfordert, dass die Sortierindizes im zu sortierenden Bereich enthalten sind, können die Sortierindizes bei `SORTIERENNACH()` an einer beliebigen Stelle in der Arbeitsmappe liegen.
 
 #### Schritt 1: Sortierkriterien festlegen. 
 
