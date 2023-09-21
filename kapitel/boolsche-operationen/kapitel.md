@@ -5,12 +5,16 @@ abstract: |
     Dieses Kapitel befasst sich mit der Anwendung der Aussagenlogik in Excel. Es werden die logischen Operatoren NICHT, UND, ODER und XODER behandelt. Auf dieser Grundlage werden die wichtigsten Vergleichsoperation zum Formulieren logischer Ausdrücke vorgestellt. Das Kapitel schliesst mit der Anwendung von Fallunterscheidungen.
 
     Es werden die folgenden Funktionen behandelt:
-    `NICHT()`, `UND()`, `ODER()`, `XODER()`, `WENN()`, `WENNS()`, `ERSTERWERT()`, `WENNFEHLER()`, `FEHLER.TYP()`, `ISTFEHLER()`, `XVERWEIS()`, `IDENTISCH()`
+    `NICHT()`, `UND()`, `ODER()`, `XODER()`, `WENN()`, `WENNS()`, `ERSTERWERT()`, `WENNFEHLER()`, `FEHLER.TYP()`, `ISTFEHLER()`, `XVERWEIS()`, `IDENTISCH()`, `FILTER()` und `SORTIERENNACH()`
 
 execute: 
   echo: false
 ---
 # Aussagenlogik {#sec-chapter-boolsche-operationen}
+
+::: {.callout-warning}
+Work in Progress
+:::
 
 ## Wahrheitswerte in Excel 
 
@@ -307,6 +311,58 @@ Diese Formel hat jedoch den Makel, dass der letzte Fall `WAHR` keine Konstante a
 
 Diese Formel ist deutlich einfacher und weniger Fehleranfällig als die ursprüngliche Formel mit geschachtelten `WENN()`-Funktionen. Es lassen sich auch weitere Fälle hinzufügen, ohne dass die Formel komplexer wird. Dabei ist zu beachten, dass diese Fälle *vor* dem Fall `WAHR` angegeben werden müssen.
 
+### Nicht erreichbare Entscheidungen
+
+Ein besonderes Problem sind Entscheidungen, die zwar definiert aber nie erreicht werden können. Solche Entscheidungen sind immer *redundant*. Eine nicht erreichbare Entscheidung kann nur dann auftreten, wenn eine vorangegangene Entscheidung bereits den geprüften Fall abdeckt. Ergibt ein solcher logischer Ausdruck `Falsch`, dann wird eine spätere Entscheidung für den gleichen Fall im Falsch-Zweig des Entscheidungsbaums ebenfalls `Falsch` ergeben. Der Wahr-Zweig dieser Entscheidung kann damit nie erreicht werden. 
+
+::: {#exm-wenns-nicht-erreichbar}
+## Nicht erreichbare Entscheidung
+
+```
+=WENNS( A1 > 5; "Sehr gut"; 
+        A1 > 3; "Genügend"; 
+        A1 > 4; "Gut"; 
+        A1 <= 3; "Ungenügend")
+```
+:::
+
+In @exm-wenns-nicht-erreichbar kann nie das Ergebnis "Gut" erzeugt werden, weil der zweite logische Ausdruck (A1 > 3) alle Werte "maskiert", die durch den dritten logischen Ausdruck (A1 > 4) als "Gut" markiert werden müssten. "Ungenügend" würde trotzdem angezeigt werden, wenn der Wert in A1 entweder 1, 2 oder 3 ist.
+
+::: {.callout-important}
+Eine nicht erreichbare Entscheidung ist kein technischer Fehler, sondern ein logischer Fehler.
+::: 
+
+Im @exm-wenns-nicht-erreichbar kann die Entscheidung `A1 > 4` nicht erreicht werden, weil das vorherige und allgemeinere Kriterium `A1 > 3` für die gleichen Werte zutrifft.  
+
+::: {.callout-note}
+## Merke
+Es müssen immer die spezielleren Kriterien vor den allgemeineren Kriterien geprüft werden.
+:::
+
+Nicht erreichbare Entscheidungen lassen sich durch das Formale prüfen der logischen Ausdrücke leicht erkennen. Dazu werden logischen Ausdrücke und die zugehörigen Wertebereiche für den Wahr- und Falsch-Fall untereinander aufgeschrieben. Ein logischer Ausdruck kann einen Wertebereich nur dann abdecken, wenn dieser eine Teilmenge des Wertebereichs der aktuellen logischen Verzweigung ist.
+
+|Rang | logischer Ausdruck | Wahr-Fall | Falsch-Fall |
+|:----:|:------------------:|:---------:|:-----------:|
+| 1 | `A1 > 5` | `A1 > 5` | `A1 <= 5` |
+| 2 | `A1 > 3` | `A1 > 3` | `A1 <= 3` |
+| 3 | `A1 > 4` | `A1 > 4` | `A1 <= 4` |
+| 4 | `A1 <= 3` | `A1 <= 3` | `A1 > 3` |
+
+: Formale Prüfung der logischen Ausdrücke aus @exm-wenns-nicht-erreichbar
+
+Weil die Funktion `WENNS()` verwendet wird, ist der Wertebereich für einen logischen Ausdruck durch die Falsch-Fälle der logischen Ausdrücke mit niedrigerem Rang abgedeckt. 
+
+Für Rang 3 muss wegen dieser Tabelle der logischen Ausdruck in @eq-nichterreichbar gelten. Dieser Ausdruck kann jedock nie Wahr ergeben, weil der geiche Wert in Variable $A1$ nicht kleiner oder gleich 3 und gleichzeitig grösser als 4 sein kann.
+
+$$
+\begin{aligned}
+& (A1 <= 5) \land & (A1 <= 3) \land & (A1 > 4) \\
+\Leftrightarrow & & (A1 <= 3) \land & (A1 > 4) \\
+\Leftrightarrow &  & \text{Falsch}
+\end{aligned}
+$$ {#eq-nichterreichbar}
+
+
 ### ERSTERWERT
 
 Die Funktion `ERSTERWERT()` bildet einen Spezialfall von `WENNS()` ab: Es wird bei allen logischen Ausdrücken ein Vergleich auf Gleichheit des *Suchkriteriums* mit verschiedenen Referenzwerten durchgeführt. In diesem Fall können die logischen Ausdrücke mit `ERSTERWERT()` stark vereinfacht werden. Das lässt sich am ersten Beispiel im Abschnitt `WENNS` veranschaulichen.  
@@ -358,6 +414,48 @@ Die Funktion `ERSTERWERT()` wird immer dann eingesetzt, wenn die Gleichheit des 
 Die Funktion `XVERWEIS()` wird immer dann eingesetzt, wenn ein Vergleich auf Gleichheit, Kleiner-oder-Gleich oder Grösser-oder-Gleich durchgeführt werden muss. Die Suchkriterien und die Vergleichsoperatoren sind für alle Vergleiche identisch.
 
 Die Funktion `XVERWEIS()` muss anstatt von `ERSTERWERT()` verwendet werden, wenn die Referenzwerte des Vergleichs zum Zeitpunkt der Formelerstellung noch nicht bekannt sind oder leicht änderbar bleiben sollen.
+
+## Filtern
+
+## Sortieren
+
+Excel kennt zwei Funktionen zum Sortieren:
+
+- `SORTIEREN()`
+- `SORTIERENNACH()`
+
+SORTIEREN NACH
+
+Für allgemeine Sortierungen nach mehreren Vektoren stellt Excel die Funktion `SORTIERENNACH()` zur Verfügung.
+
+::: {.callout-note}
+**Excels `SORTIEREN()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
+
+-  `Matrix` - der zu sortierende Bereich, der *keine* Matrix sein muss.
+- `Sortierindex` - die Spalten- oder Zeilennummer, nach der sortiert werden soll. Standardmässig wird die erste Spalte bzw. die erste Zeile angenommen. 
+- `Sortierreihenfolge` - legt die Sortierreihenfolge fest. `1`, um aufsteigend und `-1`, um absteigend zu sortieren.
+- `nach_Spalte` - Ein Wahrheitswert, ob die Spalten oder die Zeilen sortiert werden sollen. `WAHR` bedeutet, dass die Spalten (horizontal) sortiert werden sollen. `FALSCH` bedeutet, dass die Zeilen (vertikal) sortiert werden sollen. Standardmässig wird zeilenweise sortiert. 
+:::
+
+Die Funktion ermöglicht es, mehrere Vektoren auf einmal nach **mehreren** gemeinsamen Kriterien zu sortieren. Dazu müssen zuerst die Sortierkriterien identifiziert werden. 
+
+#### Schritt 1: Sortierkriterien festlegen. 
+
+Die Sortierkriterien sind durch die Werte im Sortierindex festgelegt, nach denen sortiert werden soll. Der Sortierindex ist ein Vektor mit einem Wert für eine Zeile bzw. Spalte der Sortiermatrix. Entlang der Werte im Sortierindex wird die Sortiermatrix sortiert. 
+
+In Excel können die Vektoren mit den Sortierkriterien an einer beliebigen Position in einer Arbeitsmappe liegen. Dabei müssen zwei Bedingungen erfüllt sein: 
+
+  1. Der Sortierindex und die Sortiermatrix müssen die gleiche Länge haben. 
+  2. Die Sortierindex und die Sortiermatrix müssen die gleiche Orientierung haben. 
+
+#### Schritt 2: 
+
+Im zweiten Schritt werden die zu sortierenden Vektoren ausgewählt.
+
+In R wird dieser zweite Schritt automatisch auf die vorgegebene Stichprobe angewandt. In Excel können wir zusammenhängende Vektoren als "Matrix" an die `SORTIERENNACH()`-Funktion übergeben. Hängen die Vektoren nicht direkt zusammen, dann müssen mehrere Sortieroperationen mit den gleichen Referenzen auf die Sortierreferenzen durchgeführt werden. 
+
+In Excel wird die Sortierrichtung als `Sortierreihenfolge` bezeichnet und als separater Parameter für das jeweilige Sortierkriterium angegeben. Dabei steht `1` für die aufsteigende Sortierung und `-1` für die absteigende Sortierung. 
+
 
 ## Rezepte
 
@@ -449,147 +547,3 @@ Weil alle Vergleiche die Gleichheit überprüfen, kann die Formel mit der Funkti
 ```
 
 Für diesen Schritt muss die Operation mit der Funktion `WENNFEHLER()` erweitert werden, weil die Funktion `FEHLER.TYP()` einen Fehler ausgibt, wenn der übergebene Wert kein Fehlerwert ist. Weil die Fehlertypen mit Werten grösser `0` durchnummeriert sind, bietet sich für reguläre Werte der Wert `0` an. 
-
-
------ 
-Die Basisfunktionen für das Sortieren sind die Funktionen `sort()` (R) und `SORTIEREN()` (Excel). Diese Funktionen bringen einen Vektor in die gewünschte Reihenfolge.  Beide Funktionen können nur nach einem Vektor sortieren. Deshalb eignen sie sich  nur für einfache Sortierungen. 
-
-::: {.callout-note}
-**Excels `SORTIEREN()`-Funktion** kann einen Bereich zeilen- oder spaltenweise sortieren. Diese Funktion hat vier Parameter: 
-
--  `Matrix` - der zu sortierende Bereich, der *keine* Matrix sein muss.
-- `Sortierindex` - die Spalten- oder Zeilennummer, nach der sortiert werden soll. Standardmässig wird die erste Spalte bzw. die erste Zeile angenommen. 
-- `Sortierreihenfolge` - legt die Sortierreihenfolge fest. `1`, um aufsteigend und `-1`, um absteigend zu sortieren.
-- `nach_Spalte` - Ein Wahrheitswert, ob die Spalten oder die Zeilen sortiert werden sollen. `WAHR` bedeutet, dass die Spalten (horizontal) sortiert werden sollen. `FALSCH` bedeutet, dass die Zeilen (vertikal) sortiert werden sollen. Standardmässig wird zeilenweise sortiert. 
-:::
-
-#### Die Funktionen `arrange()` und `SORTIERENNACH()`
-
-Für allgemeine Sortierungen nach mehreren Vektoren stellen Excel und R eigene Funktionen bereit. Zwei dieser Funktionen heben sich wegen ihrer Flexibilität besonders ab. Ihnen liegt der gleiche Denkprozess zu Grunde. Diese beiden Funktionen sind:
-
-- Die R-Funktion `arrange()` und 
-- die Excel-Funktion `SORTIERENNACH()`.
-
-Beide Funktionen ermöglichen uns, mehrere Vektoren auf einmal nach **mehreren** gemeinsamen Kriterien zu sortieren. Dazu müssen wir zuerst die Sortierkriterien identifizieren. 
-
-#### Schritt 1: Sortierkriterien festlegen. 
-
-Die Sortierkriterien sind durch die Werte in Vektoren festgelegt, nach denen sortiert werden soll. Wir können dazu mehrere Vektoren festlegen, deren Werte nacheinander zum Sortieren unserer Daten verwendet werden. In R legen wir die Suchkriterien über die entsprechenden *Vektornamen* und in Excel über entsprechende Vektoren oder Bereiche fest. 
-
-- In R müssen die Vektoren mit den Suchkriterien im Stichprobenobjekt vorhanden sein.  
-- In Excel können die Vektoren mit den Suchkriterien an einer beliebigen Position in einer Arbeitsmappe liegen. Dabei müssen zwei Bedingungen erfüllt sein: 
-  1. Die Vektoren müssen die gleiche Länge haben. 
-  2. Die Vektoren müssen die gleiche Orientierung haben. 
-
-#### Schritt 2: 
-
-Im zweiten Schritt werden die zu sortierenden Vektoren ausgewählt.
-
-In R wird dieser zweite Schritt automatisch auf die vorgegebene Stichprobe angewandt. In Excel können wir zusammenhängende Vektoren als "Matrix" an die `SORTIERENNACH()`-Funktion übergeben. Hängen die Vektoren nicht direkt zusammen, dann müssen mehrere Sortieroperationen mit den gleichen Referenzen auf die Sortierreferenzen durchgeführt werden. 
-
-### Sortierreihenfolge
-
-In Excel wird die Sortierrichtung als `Sortierreihenfolge` bezeichnet und als separater Parameter für das jeweilige Sortierkriterium angegeben. Dabei steht `1` für die aufsteigende Sortierung und `-1` für die absteigende Sortierung. 
-
-In R wird grundsätzlich von einer aufsteigenden Sortierung ausgegangen. Um eine absteigende Sortierung zu erreichen, verwenden wir die Hilfsfunktion `desc()` (für engl. *descending* ~ *absteigend*). 
-
-Das folgende R-Beispiel zeigt, wie die Daten im Stichprobenobjekt, zu erst absteigend nach dem `natel`-Vektor und anschliessend nach dem `geschlecht`-Vektor sortiert werden. 
-
-```
-daten %>% 
-    arrange(
-         desc(natel), # Sortierkriterium absteigend sortiert
-         geschlecht   # Sortierkriterium aufsteigend sortiert
-    )
-```
-
-### Einfache Verzweigungen
-
-Excels Entscheidungsfunktion ist die `WENN()`-Funktion. Diese Funktion hat drei Parameter: 
-
-1. Einen logischen Ausdruck - dieser Parameter wird als Wahrheitswert interpretiert. 
-2. `WAHR`-Ergebnis - dieser Parameter wird als Ergebnis zurückgegeben, wenn der erste Parameter `WAHR` ist.
-3. `FALSCH`-Ergebnis - dieser Parameter wird als Ergebnis zurückgegeben, wenn der erste Parameter `FALSCH` ist. 
-
-Diese Funktion entscheidet mit Hilfe des logischen Ausdrucks, welcher der beiden anderen Parameter zurückgegeben werden muss. 
-
-In R heisst diese Funktion `ifelse()` und hat genau die gleichen Parameter. 
-
-Häufig finden wir Formeln, in denen einfach ein Wert als erster Parameter an die `WENN()`-Funktion übergeben wird. Dieser Wert wird als logischer Ausdruck interpretiert. Dabei wird der Wert `0` mit dem Wahrheitswert `FALSCH` gleichgesetzt und Werte ungleich `0` werden  als `WAHR` interpretiert.
-
-### Abbruchbedingungen 
-
-::: {#def-abbruchbedingung}
-Eine **Abbruchbedingung** ist eine spezielle Entscheidung, die einen Algorithmus beendet. Dabei wird zwischen einem *konstanten* Wert und einem *dynamischen* Wert entschieden.
-:::
-
-Mit Hilfe von Abbruchbedingungen "schützen" wir unsere Programmlogik vor unerwünschten oder fehlerhaften Werten. 
-
-::: {.callout-note}
-Genau genommen bricht dieses Konzept nicht ab, sondern verwendet  die dynamischen Werte des Vektors nicht mehr. Stattdessen werden konstante Werte zurückgegeben. Für diese Werte müssen wir einen Wert wählen, der den logischen Ausdruck der Abbruchbedingung weiterhin so erfüllt, dass der Algorithmus diese Werte ignoriert. 
-:::
-
-### Komplexe Entscheidungen
-
-Komplexe Entscheidungen können wir uns als eine Folge einfacher Entscheidungen vorstellen. Weil solche Entscheidungen sehr unübersichtlich sein können, bieten Excel und R Kurzformen an, mit denen wir solche Folgen einfacher schreiben können.
-
-### Excels WENNS
-
-Die `WENNS()`-Funktion erlaubt es uns, verschiedene Entscheidungen zusammenzufassen. Dabei gibt es immer Paare von logischen Ausdrücken und Ergebniswerten. Die `WENNS()`-Funktion prüft nacheinander die logischen Ausdrücke und liefert als Ergebnis den Wert, der zum ersten logischen Ausdruck gehört, der WAHR ergibt. 
-
-
-::: {#exm-wenns-linear}
-## Linearer Entscheidungsbaum
-
-```
-=WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; A1 <= 3; "Ungenügend")
-```
-:::
-
-Beachten Sie, dass im @exm-wenns-nicht-erreichbar der zweite logische Ausdruck auch für die Werte des ersten logischen Ausdrucks WAHR ergeben würde. Weil aber diese Fälle bereits durch den ersten logischen Ausdruck abgefangen werden, kommen diese gar nicht mehr zum zweiten logischen Ausdruck. Entsprechend müssen Sie aufpassen, dass die logischen Ausdrücke sich nicht überschneiden. 
-
-::: {#exm-wenns-nicht-erreichbar}
-## Nicht erreichbare Entscheidungen
-
-```
-=WENNS( A1 > 5; "Sehr gut"; A1 > 3; "Genügend"; A1 > 4; "Gut"; A1 <= 3; "Ungenügend")
-```
-:::
-
-In @exm-wenns-nicht-erreichbar kann nie das Ergebnis "Gut" angezeigt werden, weil der zweite logische Ausdruck (A1 > 3) alle Werte "maskiert", die durch den dritten logischen Ausdruck (A1 > 4) als "Gut" markiert werden müssten. "Ungenügend" würde trotzdem angezeigt werden, wenn der Wert in A1 entweder 1, 2 oder 3 ist.
-
-In diesem Beispiel kann die Entscheidung `A1 > 4` nicht erreicht werden, weil das vorherige und allgemeinere Kriterium `A1 > 3` für die gleichen Werte zutrifft.  
-
-::: {.callout-note}
-## Merke
-Es müssen immer die spezielleren Kriterien vor den allgemeineren Kriterien geprüft werden.
-:::
-
-Es ist guter Stil, das letzte Parameterpaar immer für den gültigen logischen Ausdruck `WAHR` zu reservieren. Damit stellen Sie sicher, dass für jeden möglichen Eingabewert ein gültiges Ergebnis zurückgegeben wird. Dieser Schritt ist notwendig, weil `WENNS()` keine Alternativausgabe hat.
-
-::: {#exm-wenns-wahr}
-## Abschliessender Standardwert mit `WAHR`
-
-```
-=WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; UND(A1 <= 3; A1 > 0); "Ungenügend"; WAHR; "Nicht angetreten")
-```
-:::
-
-
-### Sonstige Entscheidungen in Excel
-
-In Excel gibt es zusätzlich die beiden Funktionen `WENNFEHLER()` und deren spezialisierte Form `WENNNV()`. Diese Funktionen erlauben eine kompaktere Schreibweise der typischen Fehlerbehandlung: Wenn kein Fehler erzeugt wird, dann wird das Ergebnis der Formel des ersten Parameters als Ergebnis geliefert. Wird ein Fehler erzeugt, dann wird der 2. Parameter als Rückfallwert  zurückgegeben. 
-
-Wir sparen uns mit diesen beiden Funktionen die Schreibweise: 
-
-```
-=WENN(ISTFEHLER(A1); "Rückfallwert", A1)
-```
-
-Stattdessen schreiben wir:
-
-```
-=WENNFEHLER(A1, "Rückfallwert")
-```
-
-Das ist leichter verständlich, als die ausführliche Variante mit `WENN()`.
