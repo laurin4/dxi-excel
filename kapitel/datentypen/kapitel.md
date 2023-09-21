@@ -188,7 +188,7 @@ Tabelle1!A1:C3
 
 Oft werden Arbeitsblattadressen nicht vollständig sondern gekürzt angegeben. Es gibt zwei Möglichkeiten, um Arbeitsblattadressen zu kürzen:
 
-- Werden Bereiche auf dem gleichen Arbeitsblatt adressiert, dann kann der Tabellenname weggelassen werden. 
+- Werden Bereiche auf dem gleichen Arbeitsblatt adressiert, dann kann der Arbeitsblattname weggelassen werden. 
 - Wird ein Bereich mit nur einer Zelle adressiert, dann wird das Bereichsende weggelassen.
 
 Weil Arbeitsblattadressen von vielen interaktiven Excelkommandos verwendet werden, gibt es zwei Arten von Arbeitsblattadressen:
