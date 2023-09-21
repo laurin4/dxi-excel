@@ -602,7 +602,8 @@ Der Algorithmus zum Selektieren von Vektoren ist durch die folgenden Schritte de
 ::: {#exm-excel-selektion}
 ## Selektion von Vektoren in Excel
 ```
-=SPALTENWAHL(Stichprobendaten!$B$2#; XVERGLEICH(A1:C1; Stichprobendaten!$B$1#))
+=SPALTENWAHL(Stichprobendaten!$B$2#; 
+             XVERGLEICH(A1:C1; Stichprobendaten!$B$1#))
 ``` 
 :::
 
