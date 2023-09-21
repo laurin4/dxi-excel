@@ -405,7 +405,7 @@ Nicht erreichbare Entscheidungen lassen sich durch das Formale prüfen der logis
 
 Weil die Funktion `WENNS()` verwendet wird, ist der Wertebereich für einen logischen Ausdruck durch die Falsch-Fälle der logischen Ausdrücke mit niedrigerem Rang abgedeckt. 
 
-Für Rang 3 muss wegen dieser Tabelle der logischen Ausdruck in @eq-nichterreichbar gelten. Dieser Ausdruck kann jedock nie Wahr ergeben, weil der geiche Wert in Variable $A1$ nicht kleiner oder gleich 3 und gleichzeitig grösser als 4 sein kann.
+Für Rang 3 muss wegen dieser Tabelle der logischen Ausdruck in @eq-nichterreichbar gelten. Dieser Ausdruck kann jedoch nie Wahr ergeben, weil der geiche Wert in Variable $A1$ nicht kleiner oder gleich 3 und gleichzeitig grösser als 4 sein kann.
 
 $$
 \begin{aligned}
