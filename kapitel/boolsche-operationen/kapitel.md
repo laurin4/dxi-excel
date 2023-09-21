@@ -401,7 +401,7 @@ Nicht erreichbare Entscheidungen lassen sich durch das Formale prüfen der logis
 | 3 | `A1 > 4` | `A1 > 4` | `A1 <= 4` |
 | 4 | `A1 <= 3` | `A1 <= 3` | `A1 > 3` |
 
-: Formale Prüfung der logischen Ausdrücke aus @exm-wenns-nicht-erreichbar
+: Formale Prüfung der logischen Ausdrücke aus @exm-wenns-nicht-erreichbar {#tbl-wenns-nicht-erreichbar}
 
 Weil die Funktion `WENNS()` verwendet wird, ist der Wertebereich für einen logischen Ausdruck durch die Falsch-Fälle der logischen Ausdrücke mit niedrigerem Rang abgedeckt. 
 
