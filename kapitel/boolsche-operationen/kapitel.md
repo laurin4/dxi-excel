@@ -503,7 +503,6 @@ daten %>%
     )
 ```
 
-
 ### Einfache Verzweigungen
 
 Excels Entscheidungsfunktion ist die `WENN()`-Funktion. Diese Funktion hat drei Parameter: 
@@ -540,7 +539,7 @@ Die `WENNS()`-Funktion erlaubt es uns, verschiedene Entscheidungen zusammenzufas
 
 
 ::: {#exm-wenns-linear}
-## Linearer Entscheidungsbaum**
+## Linearer Entscheidungsbaum
 
 ```
 =WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; A1 <= 3; "Ungenügend")
@@ -550,7 +549,7 @@ Die `WENNS()`-Funktion erlaubt es uns, verschiedene Entscheidungen zusammenzufas
 Beachten Sie, dass im @exm-wenns-nicht-erreichbar der zweite logische Ausdruck auch für die Werte des ersten logischen Ausdrucks WAHR ergeben würde. Weil aber diese Fälle bereits durch den ersten logischen Ausdruck abgefangen werden, kommen diese gar nicht mehr zum zweiten logischen Ausdruck. Entsprechend müssen Sie aufpassen, dass die logischen Ausdrücke sich nicht überschneiden. 
 
 ::: {#exm-wenns-nicht-erreichbar}
-## Nicht erreichbare Entscheidungen**
+## Nicht erreichbare Entscheidungen
 
 ```
 =WENNS( A1 > 5; "Sehr gut"; A1 > 3; "Genügend"; A1 > 4; "Gut"; A1 <= 3; "Ungenügend")
@@ -569,7 +568,7 @@ Es müssen immer die spezielleren Kriterien vor den allgemeineren Kriterien gepr
 Es ist guter Stil, das letzte Parameterpaar immer für den gültigen logischen Ausdruck `WAHR` zu reservieren. Damit stellen Sie sicher, dass für jeden möglichen Eingabewert ein gültiges Ergebnis zurückgegeben wird. Dieser Schritt ist notwendig, weil `WENNS()` keine Alternativausgabe hat.
 
 ::: {#exm-wenns-wahr}
-## Abschliessender Standardwert mit `WAHR`**
+## Abschliessender Standardwert mit `WAHR`
 
 ```
 =WENNS( A1 > 5; "Sehr gut"; A1 > 4; "Gut"; A1 > 3; "Genügend"; UND(A1 <= 3; A1 > 0); "Ungenügend"; WAHR; "Nicht angetreten")
