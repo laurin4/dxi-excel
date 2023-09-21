@@ -205,7 +205,7 @@ Beide Kommandos verändern die Datenstruktur, indem Spalten entfernt werden. Das
 
 ::: {.callout-warning}
 ## Achtung
-Eine spezielle Variante von `Spalten auswählen` ist Kommando `In Liste konvertieren` im Menuband `Transformieren`. Dieses Kommando entfernt alle bis auf die ausgewählte Spalte. Dieses Kommando ändert jedoch die Spaltenüberschrift und sollte deshalb nicht verwendet werden.
+Eine spezielle Variante von `Spalten auswählen` ist das Kommando `In Liste konvertieren` im Menuband `Transformieren`. Dieses Kommando entfernt alle bis auf die ausgewählte Spalte. Dieses Kommando ändert jedoch die Spaltenüberschrift und sollte deshalb nicht verwendet werden.
 :::
 
 
