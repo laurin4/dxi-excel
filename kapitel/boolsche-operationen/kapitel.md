@@ -5,16 +5,12 @@ abstract: |
     Dieses Kapitel befasst sich mit der Anwendung der Aussagenlogik in Excel. Es werden die logischen Operatoren NICHT, UND, ODER und XODER behandelt. Auf dieser Grundlage werden die wichtigsten Vergleichsoperation zum Formulieren logischer Ausdrücke vorgestellt. Das Kapitel schliesst mit der Anwendung von Fallunterscheidungen.
 
     Es werden die folgenden Funktionen behandelt:
-    `NICHT()`, `UND()`, `ODER()`, `XODER()`, `WENN()`, `WENNS()`, `ERSTERWERT()`, `WENNFEHLER()`, `FEHLER.TYP()`, `ISTFEHLER()`, `XVERWEIS()`, `IDENTISCH()`, `FILTER()` und `SORTIERENNACH()`
+    `NICHT()`, `UND()`, `ODER()`, `XODER()`, `WENN()`, `WENNS()`, `ERSTERWERT()`, `WENNFEHLER()`, `FEHLER.TYP()`, `ISTFEHLER()`, `XVERWEIS()`, `IDENTISCH()`, `FILTER()`, `SORTIEREN()`, `SORTIERENNACH()` und `SPALTENWAHL()`
 
 execute: 
   echo: false
 ---
 # Aussagenlogik {#sec-chapter-boolsche-operationen}
-
-::: {.callout-warning}
-Work in Progress
-:::
 
 ## Wahrheitswerte in Excel 
 
@@ -99,11 +95,17 @@ In Excel werden die Vergleichsoperatoren wie folgt geschrieben:
 - `=` (gleich)
 - `<>` (ungleich) 
 
-Excel's Vergleichsoperatoren sind Datentypen sensitiv. Das bedeutet, dass die Operatoren Datentypen vor dem Vergleich *nicht* angleichen. Der Vergleich folgende Vergleich ergibt also immer `FALSCH`.
+Excel's Vergleichsoperatoren sind Datentypen sensitiv. Das bedeutet, dass die Operatoren Datentypen vor dem Vergleich *nicht* angleichen. Der folgende Vergleich ergibt also `FALSCH`.
 
 ```
 = 3 = "3"
 ```
+
+::: {.callout-note}
+## Merke
+Ziffern sind keine Zahlen!
+:::
+
 
 Weil die Operationen `*`, `+` und `-` normalerweise vor den Vergleichsoperatoren ausgeführt werden, müssen alle Vergleiche eines logischen Ausdrucks für die Boole'sche Arithmetik in Klammern gesetzt werden.
 
@@ -133,6 +135,57 @@ Die Vergleichsoperatoren zeigen die Unterschiede zweier Zeichenketten bezüglich
 Weil Excel für Vergleiche die nicht-druckbaren Zeichen mit Ausnahme des Leerzeichens und des Tabulators ignoriert, gibt der Vergleichsoperator `=` `WAHR` auch für Zeichenketten zurück, die unterschiedliche nicht-druckbare Zeichen enthalten. Das gleiche Problem entsteht beim Vergleich von unterschiedlicher Gross- und Kleinschreibung. Um auch diese Unterschiede zu erkennen, müssen wir die Funktion `IDENTISCH()` verwenden. Diese Funktion vergleicht die Zeichenketten Zeichen für Zeichen und liefert nur dann `WAHR` zurück, wenn die Zeichenketten exakt gleich sind.
 
 BEISPIEL
+
+## Komplexe logische Ausdrücke und Datenstrukturen {#sec-vector-logic}
+
+Excel hat zwar Funktionen für die logischen Operatoren *Und* (`UND()`), Oder (`ODER()`) und *Exklusives Oder* (`XODER()`), diese Funktionen haben aber den Nachteil, dass sie nur Werte zusammenfassen können. In der Praxis werden jedoch oft *Datenstrukturen* als Variablen für logische Ausdrücke verwendet. Diese sollen durch die logischen Operatoren verknüpft und nicht zusammengefasst werden.
+
+Um logische Verknüfungen für Datenstrukturen zu realisieren, müssen die logischen Operatoren mit der Boole'schen Arithmetik umgesetzt werden. Dazu werden die logischen Operatoren durch die entsprechenden arithmetischen Operatoren ersetzt.
+
+> ::: {#exm-vector-logic}
+>
+>Für die folgenden Werte soll der folgende logische Ausdruck geprüft werden.
+>
+> $$
+> a \land b \lor (c < 10) \land d
+> $$
+>
+> |   A |   B |   C |   D |
+> |:----:|----:|----:|----:|
+> | WAHR | 5 | 21 | 17 |
+> | FALSCH | 3 | 5 | 1 |
+> | WAHR | 0 | 10 | 2 |
+> | FALSCH | 1 | 11 | 3 |
+> 
+> Für diesen Ausdruck werden die Werte `{WAHR; WAHR; FALSCH; FALSCH}` erwartet.
+> 
+> Die naive Umsetzung `=ODER(UND(A1:A4;B1:B4);UND(C1:C4;D1:D4))` hat als Ergebnis den Wert `WAHR`. 
+> 
+> Die Formel `= A1:A4 * B1:B4 + (C1:C4 < 10) * D1:D4` liefert die Werte `{5; 1; 0; 0}` diese lassen sich durch einen Vergleich in die entsprechenden Wahrheitswerte konvertieren. Diese Konversion ist nur notwendig, wenn der Ausdruck nicht als logischer Ausdruck an eine Funktion übergeben wird.
+> 
+> ```
+> = (A1:A4 * B1:B4 + (C1:C4 < 10) * D1:D4) <> 0
+> ```
+> 
+> Diese Formel ergibt die erwarteten Werte `{WAHR; WAHR; FALSCH; FALSCH}`.
+> ::: 
+
+Die Ausnahme von dieser Regel ist Verwendung der logischen Funktionen als Tabellenfunktion. In diesem Fall können die Werte zeilenweise auch von den logischen Funktionen verarbeitet werden.
+
+> ::: {#exm-table-logic}
+> 
+> Werden die Werte aus @exm-vector-logic als Tabelle konvertiert und mit `BeispielTabelle` benannt, dann können die logischen Funktionen in einer *gleich langen Tabelle* mit der *gleichen Startzeile* auch als Tabellenfunktionen verwendet werden. In diesem Fall werden die Werte zeilenweise verarbeitet.
+> 
+> ```
+> =ODER(
+>       UND(BeispielTabelle[@a];BeispielTabelle[@b]);
+>       UND(BeispielTabelle[@c] < 10; BeispielTabelle[@d])
+>  )
+> ```
+> 
+> Diese Formel ergibt die erwarteten Werte `{WAHR; WAHR; FALSCH; FALSCH}`.
+> :::
+
 
 ## Fälle unterscheiden
 
@@ -417,6 +470,125 @@ Die Funktion `XVERWEIS()` muss anstatt von `ERSTERWERT()` verwendet werden, wenn
 
 ## Filtern
 
+Excel bietet die Funktion `FILTER()` zum Filtern von Daten. Diese Funktion erzeugt einen Ergebnisbereich mit den Werten, die durch den angegebenen logischen Ausdruck ausgewählt wurden. 
+
+::: {.callout-warning}
+In Excel können in Tabellen und Pivot-Tabellen für einzelne Vektoren Werte für die *Darstellung* "gefiltert" werden. Dabei verwendet Excel nicht die Filter Funktion, sondern *blendet* einzelne Datensätze *aus*. Dadurch können die Ergebnisse  nachgereihter Operationen nicht mit den dargestellten Werten zusammenpassen, weil nicht-dargestellte Werte weiterhin Teil der Daten sind und bei Berechnungen weiterhin mitberücksichtigt werden.
+:::
+
+Das Ergebnis der Funktion `FILTER()` ist ein dynamischer Bereich mit den ausgewählten Werten. Im Gegensatz zu Tabellen-Filter sind die nicht dargestellten Werte nicht mehr Teil der Daten. Deshalb sind die Ergebnisse der `FILTER()`-Funktion konsistent mit den Ergebnissen der nachgereihten Operationen.
+
+::: {#def-excel-filter}
+Excels `FILTER()`-Funktion wählt aus einem Vektor die Werte aus, für die ein **Auswahlvektor** den Wert `WAHR` oder einen Wert, der dem logischen `WAHR` entspricht. 
+:::
+
+> ::: {#exm-excel-filter}
+> ## Filtern mit Excel
+> 
+> Gegeben sind die folgende Werte in den Spalten `A` und `B`. Die `Filter()`-Funktion steht an Adresse `D2`.
+> 
+> | | A | B | C | D |
+> | :---: | :---| :---: |  :---: | :---: | 
+> | **1** | Basel | WAHR | | `=FILTER(A1:A5; B1:B5)` | 
+> | **2** | Genf | FALSCH | | Basel | 
+> | **3** | Lugano | FALSCH | | Zug | 
+> | **4** | Zug | WAHR | | Zürich | 
+> | **5** | Zürich | WAHR | | | 
+> 
+> Weil die Werte in Spalte `B` vom Datentyp Wahrheitswert sind, kann > dieser Vektor zur Auswahl der Städtenamen in Spalte `A` verwendet werden.
+> 
+> Anstelle eines Vektors mit Wahrheitswerten wird meistens ein Vergleich als zweiter Parameter übergeben. Dieser Vergleich muss einen Vektor erzeugen, der genauso lang ist, wie der Vektor im ersten Parameter. Solche Vektoren werden dynamisch erzeugt, indem ein Vergleich entweder den Vektor selbst oder einen benachbarten Vektor verwendet.
+> 
+> | | A | B | C | D |
+> | :---: | :---| :---: |  :---: | :---: |
+> | **1** | Basel | deutsch | | `=FILTER(A1:A5; B1:B5 = "deutsch")` | 
+> | **2** | Genf | französisch | | Basel | 
+> | **3** | Lugano | italienisch | | Zug | 
+> | **4** | Zug | deutsch | | Zürich | 
+> | **5** | Zürich | deutsch | | | 
+> :::
+
+### Excel Filter und logische Operationen
+
+Weil die `FILTER()`-Funktion immer über Vektoren arbeitet, können die logischen Funktionen nicht verwendet werden, weil sie keine Vektoren erzeugen. Deshalb *muss* der logische Ausdruck des Filters als Boole'sche Arithmetik formuliert werden (@sec-vector-logic).
+
+::: {.callout-note}
+Die Funktion `NICHT()` ist kein Aggregator und kann mit der `FILTER()`-Funktion kombiniert werden.
+:::
+
+Um mit komplexen logischen Ausdrücken in Filtern zu verwenden, müssen wir die logischen Operatoren durch ihre *arithmetische Schreibweise* ersetzen.
+
+| | A | B | C | D | E |
+| :---: | :---| :---: |  :---: | :---: | :---: |
+| **1** | *Name* | *Sprache* | *Einwohner:innen* | | *Formel* |
+| **2** | Basel | deutsch | 173863| | `=FILTER(A2:A6;(B2:B6="deutsch")*(C2:C6 > 100000))` | 
+| **3** | Genf | französisch | 203856 | | Basel | 
+| **4** | Lugano | italienisch | 62315 | | Zürich | 
+| **5** | Zug | deutsch | 30934 | | | 
+| **6** | Zürich | deutsch | 421878 | | | 
+: Beispiel eines komplexen logischen Ausdrucks mit `FILTER()` {#tbl-filter-complex}
+
+## Selektieren
+
+Sehr häufig liegen umfangreiche Daten mit vielen Vektoren vor. Soll sich eine Analyse auf einzelne Vektoren beschränken, dann sollen, analog zum Filtern von Datensätzen, nur diese Vektoren ausgewählt werden. 
+
+::: {#def-selektieren}
+Das Filtern von Vektoren wird als **selektieren** bezeichnet. 
+:::
+
+Weil die Vektoren einer Stichprobe in der Regel benannt sind, werden Vektoren über ihre Namen *selektiert*. 
+
+::: {.callout-note}
+## Merke
+Die Vektorennamen einer Stichprobe haben besondere Eigenschaften: 
+
+1. Vektorennamen sind immer von Datentyp `Zeichenkette`.
+2. Vektorennamen einer Stichprobe bilden einen **Vektor**.
+3. Die Vektorennamen einer Stichprobe sind **eindeutig**
+:::
+
+Die dritte Eigenschaft ist nicht ganz offensichtlich, denn in einer manuell eingegebenen zwei-dimensionalen Struktur kann eine Überschrift mehrfach verwendet werden. Sobald eine solche Struktur in eine Excel-Tabelle umgewandelt wird, erzwingt Excel eindeutige Vektorennamen.
+
+Aus diesen Eigenschaften folgt, dass die Auswahl von Vektoren durch die Eigenschaften von Zeichenketten unterstützt wird. Wir können zur Auswahl die folgenden Operationen verwenden: 
+
+- Identischer Vektorname
+- Vektorname beginnt mit einer bestimmten Zeichenkette
+- Vektorname endet mit einer bestimmten Zeichenkette
+- Vektorname enthält an einer beliebigen Position eine bestimme Zeichenkette
+
+Diese Operationen lassen sich als logische Ausdrücke formulieren, wodurch sich komplexere Selektoren umsetzen lassen. 
+
+Der einfachste Weg zum Vektoren adressieren ist die Verwendung des Vektornamens über die Tabellenadressierung. Dabei wird der Vektorname in eckige Klammern gesetzt (s. [Abschnitt @sec-tabellenadressen]). Die Tabellenadressierung ist jedoch auf vollständige Namen und auf zusammenhängende Bereiche beschränkt.
+
+Die Verwendung einer Selektor-Funktion zur Auswahl von Vektoren ist nicht auf Tabellen beschränkt, sondern kann mit beliebigen tabellarischen Strukturen angewendet werden. In Excel wird eine Selektor Funktion durch die Funktionskette eines Filters mit der Funktion `SPALTENWAHL()` erreicht.
+
+Neben der Tabellenadressierung bietet Excel die Funktion `SPALTENWAHL()`, um Vektoren aus einem Bereich auszulesen. Diese Funktion benötigt aber die Position der gewünschten Spalte, denn oft sollen aber  Vektoren über Namen oder Namensteile ausgewählt werden. Dafür kommt die Funktion `XVERGLEICH()` zur Anwendung. Mit `XVERGLEICH()` erhalten wir die Position eines gesuchten Werts in einem angegebenen Bereich. 
+
+Die Idee hinter dem hier beschriebenen Ansatz ist, dass wir herausfinden, wo unser gewünschter Vektor in der Stichprobe steht. Anschliessend wählen wir alle Werte an dieser Position mit der Funktion `Spaltenwahl()` aus. 
+
+::: {.callout-note}
+Die Funktion `XVERGLEICH()` ähnelt der Funktion `XVERWEIS()` indem wir einen Wert in einem Vektor suchen können. Anstelle eines Referenzwerts aus einem anderen Vektor liefert `XVERGLEICH()` nur die Position des gesuchten Werts zurück. Falls ein Wert mehrfach vorkommt, dann gibt die Funktion nur die *erste* Position zurück. 
+:::
+
+Der Funktion `XVERGLEICH()` können mehrere Suchwerte übergeben werden, für welche die Positionen bestimmt werden. 
+
+![Beispiel für Vektorenselektion](figures/Vektorenselektion_Excel.png)
+
+
+Der Algorithmus zum Selektieren von Vektoren ist durch die folgenden Schritte definiert: 
+
+1. Wir *vektorisieren* nur die Vektornamen auf einem neuen Arbeitsblatt mit der Identitätsfunktion ab Adresse `B1`. Zur Veranschaulichung nenne ich dieses Arbeitsblatt `Stichprobendaten`. 
+2. Wir *vektorisieren* *alle* Stichprobendaten mittels der Identitätsfunktion auf dem gleichen Arbeitsblatt ab Adresse `B2`. 
+4. Auf einem neuen Arbeitsblatt geben wir in der ersten Zeile die Vektorennamen ab Adresse `A1` ein, die wir auswählen möchten. In diesem Beispiel wird angenommen, dass 3 Vektoren ausgewählt werden sollen.
+5. Wir wählen die einzelnen Vektoren mit der folgenden Formel an der Adresse A2 aus.
+
+::: {#exm-excel-selektion}
+```
+=SPALTENWAHL(Stichprobendaten!$B$2#; XVERGLEICH(A1:C1; Stichprobendaten!$B$1#))
+``` 
+
+Der Vorteil dieser Strategie ist, dass die Selektion individuelle, nicht-zusammenhängende Vektoren selektieren kann und nicht auf Tabellen beschränkt ist.
+
 ## Sortieren
 
 Excel kennt zwei Funktionen zum Sortieren:
@@ -547,3 +719,35 @@ Weil alle Vergleiche die Gleichheit überprüfen, kann die Formel mit der Funkti
 ```
 
 Für diesen Schritt muss die Operation mit der Funktion `WENNFEHLER()` erweitert werden, weil die Funktion `FEHLER.TYP()` einen Fehler ausgibt, wenn der übergebene Wert kein Fehlerwert ist. Weil die Fehlertypen mit Werten grösser `0` durchnummeriert sind, bietet sich für reguläre Werte der Wert `0` an. 
+
+### Filtern und Summen
+
+Bis Juli 2020 mussten die Funktionen `SUMMEWENN()` oder `SUMMEWENNS()` verwendet werden, um Daten nach Kriterien zu summieren. Diese Funktionen haben allerdings den Nachteil, dass keine echten logischen Ausdrücke verwendet werden können. Seit Juli 2020 steht die `FILTER()`-Funktion zur Verfügung. Dadurch können echte logische Ausdrücke als Filterkriterien eingesetzt werden. Gleichzeitig hat sich die Bedeutung der Funktionen `SUMMEWENN()` und `SUMMEWENNS()`geändert (s. @sec-chapter-kodieren-gruppieren).
+
+Die folgende Formel sollten wir jetzt mit der Filter-Technik umschreiben. 
+
+::: {#exm-summenwenn-filter}
+## Summenwenn durch Filter-Summe ersetzen
+
+Alt wurde geschrieben:
+
+```
+= SUMMEWENN(B2#; "< 0")
+```
+
+Neu ist die gleiche Funktion etwas ausführlicher:
+
+```
+= SUMME( FILTER(B2#; B2# < 0) )
+```
+
+Diese Schreibweise hat den Vorteil, dass die einzelnen Schritte nach dem Prinzip der Problemzerlegung getrennt werden und separat untersucht werden können. Das war in der alten Schreibweise nur indirekt möglich. 
+:::
+
+Das gleiche Prinzip gilt auch für `ZÄHLENWENN()` und `ZÄHLENWENNS()` anwenden. In diesem Fall wird entweder die Funktion `ANZAHL()` oder die Funktion `ANZAHL2()` als Aggregator eingesetzt.
+
+Der grösste Vorteil ist aber, dass mit dieser Technik **beliebige** EXCEL-Aggregatoren mit gefilterten Daten eingesetzbar sind und nicht mehr auf die vordefinierten Aggregatoren eingeschränkt sind. Mit dem Filtern wird es ausserdem möglich, andere logische Ausdrücke als nur *einen* direkte Vergleich oder, im Fall von `SUMMEWENNS()` oder `ZÄHLENWENNS()`, mit *Und* verknüpfte Vergleiche durchzuführen.
+
+::: {.callout-warning}
+Wenn wir komplexe logische Ausdrücke mit  Excels `FILTER()`-Funktion verwenden wollen, dann **müssen** wir für die logischen Operatoren die *arithmetische Schreibweise für die logischen Ausdrücke*  verwenden!
+:::
