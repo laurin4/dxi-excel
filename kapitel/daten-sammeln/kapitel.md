@@ -27,7 +27,7 @@ Microsoft Forms unterstützt die folgenden Antworttypen:
 
 - Offene Antworttypen
     - Offene Texteingabe
-    - Dateumseingabe
+    - Datumseingabe
     - Datei hochladen
 - Geschlossene Antworttypen
     - Einfachauswahl
