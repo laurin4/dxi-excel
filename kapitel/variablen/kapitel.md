@@ -87,27 +87,138 @@ Eine Tabelle ist ein spezieller benannter Bereich, der als Ganzes oder in Teilen
 
 ## Funktionen {#sec-funktionen}
 
+Excel kann nur durch Funktionen programmiert werden. 
+
+::: {.callout-note}
+## Makros
+Neben den Funktionen und Kommandos existieren in Excel noch Makros. Mit Makros können neue Kommandos und Funktionen programmiert werden. Makros folgen aber nicht den Regeln von Formeln, weil sie in einer anderen Programmiersprache geschrieben werden.
+
+Makros unterliegen nicht den Einschränkungen von Excel-Funktionen. Diese Freiheit ist gleichzeitig ein Fluch, denn Makros sind ein Sicherheitsrisiko und Excel präsentiert entsprechende Warnungen, wenn Makros in einer Arbeitsmappe gefunden wurde. 
+
+Aktuelle Bestrebungen von Microsoft zielen darauf ab, Makros langfristig durch Funktionen zu ersetzen. Ein Teil dieser Bestrebungen ist die Einführung von LAMBDA-Funktionen (s. [Abschnitt @sec-lambda-funktionen]).
+:::
+
+::: {.callout-note}
+## Merke
+Excel hat keine Identitätsfunktion. Die Identitätsfunktion wird durch eine Formel simuliert, die nur eine Adresse enthält. Solche Formeln werden für das *Vektorisieren* (@def-vektorisieren) von Bereichen eingesetzt.
+:::
 ## Operatoren
 
 Excel hat eine Anzahl vordefinierter Operatoren. Nicht alle Excel Operatoren haben keine direkte Entsprechung als Funktion. 
+
+## Substitution
 
 ### Substitution über Funktionspfade
 
 ### Substitution mit `LET()`
 
+Excels `LET()`-Funktion erlaubt das Vereinfachen komplizierter Formeln durch *Variablen*. Diese *Variablen* existieren nur im Kontext der `LET()`-Funktion und können nicht ausserhalb dieser Funktion verwendet werden.
+
+::: {.callout-note}
+## Problem
+Eine Funktion wird in einer Operation mit den gleichen Parametern mehrfach aufgerufen. 
+:::
+
+Eine Variable in der LET()-Funktion entspricht einer Substitution eines Teilausdrucks einer Formel.
+
+::: {#exm-let-substitution}
+## `LET()`-Funktion zur Substitution
+```Excel
+=LET(
+    Daten; 'Unbearbeitete Daten'!A:F;
+    DatenFeld; INDEX(
+        Daten;
+        sequenz(ZEILEN(Daten));
+        sequenz(1; SPALTEN(Daten))
+      ); 
+    WENN(ISTLEER(DatenFeld);#NV;DatenFeld)
+ )
+```
+::: 
+
+In @exm-let-substitution wird der referenzierte Bereich und der Aufruf der `INDEX()` substituiert. Die Substitution wird durch die Variablen `Daten` und `DatenFeld` realisiert. 
+
+
+::: {#exm-ohne-let-substitution}
+## Formel ohne Substitution
+
+```
+=WENN(ISTLEER(INDEX(
+        'Unbearbeitete Daten'!A:F;
+        sequenz(ZEILEN('Unbearbeitete Daten'!A:F));
+        sequenz(1; SPALTEN('Unbearbeitete Daten'!A:F))
+      ));
+      #NV;
+      INDEX(
+        'Unbearbeitete Daten'!A:F;
+        sequenz(ZEILEN('Unbearbeitete Daten'!A:F));
+        sequenz(1; SPALTEN('Unbearbeitete Daten'!A:F))
+      )
+ )
+ ```
+:::
+
+Die beiden Beispiele veranschaulichen, wie mit der `LET()`-Funktion mehr als eine Substitution umgesetzt wird, um eine komplexe Formel in überschaubare Teilschritte zu zerlegen und so stark zu vereinfachen.
+
+
 ## Funktionsketten
 
-- Funktionsketten mit LET
+Normalerweise entsprechen Excel-Adressen diesem Konzept. Gerade bei Matrizen und bestimmten Transformationen ist das Zwischenspeichern von Werten auf einem Arbeitsblatt unhandlich, behindert die Übersichtlichkeit oder führt zu unerwarteten Ergebnissen. Mit der Funktion `LET()` können wir Hilfsvariablen anlegen und so Excel-Formeln stark vereinfachen. 
 
-### Leere Zellen in einer Funktionskette {#sec-funktionsketten-leerezelle}
+
+### LET() und leere Zellen {#sec-funktionsketten-leerezelle}
 
 Normalerweise werden leere Zellen als Ergebnis einer Funktion durch `0` ersetzt. Dieses Konvertierung findet erst bei der Darstellung des Ergebnisses statt. Innerhalb einer Funktionskette werden leere Zellen als leere Zellen weitergereicht, solange keine Aggregation vorgenommen wird. Es ist deshalb möglich in einer Funktionskette eine Entscheidung mit `ISTLEER()` für den Fall einer leeren Zelle zu treffen.
 
-## Funktionen selbst definieren
+Eine Excel-Operation **muss** einen Wert als Ergebnis einer **Formel** haben. Wird ein nicht vorhandener Wert (d.h. leere Zelle) in einem Ergebnis einer Formel gefunden, dann wird dieser Wert automatisch in den Wert `0` konvertiert. Diese Umwandlung passiert jedoch erst *nachdem* die Operation abgeschlossen ist und Excel das Ergebnis auf dem Arbeitsblatt darstellt. 
+
+Dieses Verhalten hat zur Folge, dass solange eine Operation nicht abgeschlossen ist, die nicht vorhandenen Werte in ihrer ursprünglichen Form erhalten bleiben. Es ist also möglich diese Werte mit `ISTLEER()` zu prüfen. 
+
+Die ursprünglichen Daten können unvollständig sein und enthalten dann leere Zellen an den entsprechenden Zellen. Diese fehlenden Werte als `0` darzustellen, kann zu verzerrten Ergebnissen führen. Deshalb sollten solche Werte mit dem *Fehler* `#NV` (lies: *Nicht Vorhanden*) markiert werden. Dieser Fehlerwert wird nicht automatisch in den Wert `0` umgewandelt, so dass die fehlenden Werte korrekt berücksichtigt werden können. 
+
+Diese Umwandlung nutzt aus, dass Excel leere Zellen als Ergebnis von *Funktionen* zulässt, aber nicht als Ergebnis von *Formeln*. Entsprechend kann das folgende Funktionsmuster verwendet werden.
+
+
+Die beiden Vektoren `G1#` und `H1#` sind Hilfsvektoren, die Sequenzen für die Zeilen- und Spaltenindizes der Datenstruktur `A:F` enthalten.
+
+Der *logische Ausdruck* prüft, ob ein Feld mit dem Index `G1#` und `H1#` im Stichprobenobjekt leer ist. Falls das Feld in den unbearbeiteten Daten leer ist, dann wird der Wert `#NV` als Ergebnis zurückgegeben. Sonst soll der Wert im Feld übergeben. 
+
+In dieser Operation wird die Funktion `INDEX()` zwei Mal mit den gleichen Parametern aufgerufen. Das ist unpraktisch, weil die Operation an zwei Stellen angepasst müsste, wenn die Daten mehr oder weniger Spalten haben. Besser wäre es, wenn das Zwischenergebnis der `INDEX()`-Funktion aus der Operation herausgelöst wird und über eine Funktionsverkettung eingebunden wird. Das ist aber nicht möglich, weil Excel bei diesem Zwischenschritt die fehlenden Werte in `0` ändert, sodass anschliessend der logische Ausdruck immer `FALSCH` liefern würde.
+
+Mittels der `LET()` Funktion wird das Ergebnis dieses Zwischenschritts in einer temporären *Variablen* gespeichert. Gegenüber der normalen Funktionsverkettung durch Funktionspfade hat diese Strategie den Vorteil, dass für Excel die Operation nicht abgeschlossen ist und deshalb die fehlenden Werte *noch nicht* in den Wert `0` umgewandelt werden. Der logische Ausdruck in der `WENN()`-Funktion kann also `WAHR` ergeben, wenn in den Daten ein Wert fehlt. Ausserdem muss die Indizierung für eine Position nur einmal durchgeführt werden, was bei komplexen Formeln die Übersichtlichkeit erhöht und die Ausführung beschleunigt.
+
+Die ursprüngliche Formel lässt sich also dahingehend vereinfachen, dass der Aufruf der `INDEX()`-Funktion "ausgeklammert" und in der Hilfsvariablen `Feld` gespeichert wird. 
+
+Daraus ergibt sich die Lösung als Funktionskette.
+
+```
+=LET(Feld; INDEX('Unbearbeitete Daten'!A:F;A2#;B1#); 
+     WENN(
+        ISTLEER(Feld);
+        #NV;
+        Feld
+     )
+ )
+```
+
+Diese Lösung entspricht ungefähr der Funktionskette @eq-funktionskette-let.
+
+$$
+Index() \triangleright Wenn()
+$$ {#eq-funktionskette-let}
+
+Damit wird der Aufruf der `WENN()`-Funktion vereinfacht, weil nur noch die Hilfsvariable `Feld` übergeben müssen. Diese Variable enthält die Daten für die Funktionsverkettung, so dass eine zusätzliche Arbeitsblattadresse nicht notwendig ist. 
+
+## Funktionen selbst definieren {#sec-lambda-funktionen}
 
 LAMBDA Funktion
 
+- Funktionen können Funktionsketten beinhalten. 
+- Funktionen können nur Bereiche als Ergebnis erzeugen.
+- Funktionen können auch intern keine komplexeren Datenstrukturen erzeugen, als Excel normalerweise zulässt. Es sind maximal 2D Bereiche erlaubt. Komplexere Sturkturen müssen über Hilfsvariablen abgebildet werden.
+
 Strategie der Funktionsentwicklung
+
 - Funktion als Funktionspfad
 - Funktion als Funktionskette
 - Funktion als LAMBDA Funktion
