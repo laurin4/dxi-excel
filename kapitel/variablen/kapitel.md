@@ -35,7 +35,7 @@ Formeln können mehr als einen Wert verarbeiten und mehr als einen Ergebnis lief
 ```
 =A1:A10
 ```
-::: 
+:::
 
 Im Gegensatz zu einem normalen Bereich, ist bei einem dynamischen Bereich nur die linke obere Zelle bekannt. Um trotzdem alle Zellen eines solchen Bereichs zu adressieren, wird die Gatter- (`#`) Notation verwendet.
 
@@ -48,6 +48,25 @@ Der Vorteil des Vektorisierens ist, dass der Bereich durch das Einfügen neuer Z
 
 Weil Tabellen automatisch vektorisiert werden, ist es einfacher Werte in einer Tabelle zu erfassen bzw. als Tabelle zu importieren (s. @sec-chapter-daten-importieren) und anschliessend über die Tabellenadressierung auf die Werte zu verweisen.
 :::
+
+::: {.callout-note}
+## Merke
+Tabellenadressierungen auf eine Spalte oder einen Spaltenberech sind immer Vektorisiert.
+:::
+
+> ::: {#exm-tabellen-zu-vektoren}
+> ## Vektorisieren von Tabellenspalten
+> 
+> ```
+> = Tabelle1[Spalte1]
+> ```
+> 
+> Diese Formel vektorisiert die Spalte mit dem Namen `Spalte1` aus der Tabelle `Tabelle1`. Angenommen, dass diese Formel in Zelle `A1` des aktuellen Arbeitsblattes steht, dann kann anschliessend auf den Vektor über die Gatter-Notation zugegriffen werden: 
+> 
+> ```
+> =A1#
+> ```
+> ::: 
 
 ### Benannte Bereiche
 
