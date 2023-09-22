@@ -106,7 +106,7 @@ Das Apostroph kann entfallen, wenn die aktive Zelle vorher bereits als Datentyp 
 
 Der Gleich-Dekorator (`=`) zeigt an, dass die nachfolgenden Symbole als Formel interpretiert werden müssen.
 
-Bei der Eingabe des Gleich-Dekorators wechselt Excel für die laufende Eingabe in den Formelmodus. Mit beeenden der Eingabe mit der Eingabetaste wird der Formelmodus wieder verlassen und das Ergebnis der eingegebenen Formel wird in der Zelle angezeigt.
+Bei der Eingabe des Gleich-Dekorators wechselt Excel für die laufende Eingabe in den Formelmodus. Mit beenden der Eingabe mit der Eingabetaste wird der Formelmodus wieder verlassen und das Ergebnis der eingegebenen Formel wird in der Zelle angezeigt.
 
 ## Komplexe Datenstrukturen
 
