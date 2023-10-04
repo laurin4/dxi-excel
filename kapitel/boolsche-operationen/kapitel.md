@@ -561,7 +561,7 @@ Die Vektorennamen einer Stichprobe haben besondere Eigenschaften:
 
 1. Vektorennamen sind immer von Datentyp `Zeichenkette`.
 2. Vektorennamen einer Stichprobe bilden einen **Vektor**.
-3. Die Vektorennamen einer Stichprobe sind **eindeutig**
+3. Die Vektorennamen einer Stichprobe sind **eindeutig**.
 :::
 
 Die dritte Eigenschaft ist nicht ganz offensichtlich, denn in einer manuell eingegebenen zwei-dimensionalen Struktur kann eine Überschrift mehrfach verwendet werden. Sobald eine solche Struktur in eine Excel-Tabelle umgewandelt wird, erzwingt Excel eindeutige Vektorennamen.
