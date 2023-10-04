@@ -29,11 +29,11 @@ Im [Abschnitt @sec-adressierung-ds] werden die verschiendenen Arten der Adressie
 Direkt unter dem Tabellenbereich zeigt Excel *Register* mit den Namen der Arbeitsblätter. Diese Register zeigen alle Arbeitsblätter einer Excel-Arbeitsmappe. Wenn eine neue, leere Arbeitsmappe erstellt wird, dann enthält diese nur ein Arbeitsblatt mit dem Namen ``Tabelle 1``.
 Mit dem ``Plus``-Symbol neben dem **Arbeitsblattregistern** können zusätzliche Arbeitsblätter in der Arbeitsmappe erzeugt werden.
 
-## Menubalken
+## Menübalken
 
 ![Menubalken](figures/excel_menubalken.png){#fig-menubalken}
 
-Am oberen Fensterrand von Excel befindet sich der **Menubalken**, der im Excel Jargon "Ribbon" heisst. Der Menubalken ist in verschiedene Kategorien unterteilt und sortiert so die verschiedenen interaktiven **Kommandos** von Excel. 
+Am oberen Fensterrand von Excel befindet sich der **Menübalken**, der im Excel Jargon "Ribbon" heisst. Der Menübalken ist in verschiedene Kategorien unterteilt und sortiert so die verschiedenen interaktiven **Kommandos** von Excel. 
 
 ::: {#def-kommando}
 Ein **Kommando** ist eine *interaktive Anweisung* an Excel, eine bestimmte Aktion auszuführen.
@@ -41,7 +41,7 @@ Ein **Kommando** ist eine *interaktive Anweisung* an Excel, eine bestimmte Aktio
 
 Kommandos werden immer interaktiv ausgelöst und lassen sich meist nicht durch Excel-Funktionen ersetzen.
 
-Für die tägliche Arbeit sind die folgenden Kategorien des Menubalkens am wichtigsten:
+Für die tägliche Arbeit sind die folgenden Kategorien des Menübalkens am wichtigsten:
 
 - Start
 - Einfügen
@@ -71,7 +71,7 @@ Ist bei der Eingabe ein Fehler passiert, dann lässt sich die Eingabe mit einem 
 
 Wird die aktive Zelle nicht bearbeitet, dann sind der Hacken und das X ausgegraut und können nicht verwendet werden.
 
-Direkt neben dem Eingabefeld mit dem Inhalt der aktiven Zelle ist das Bedienfeld für den *Formelgenerator*. Der Formelgenerator ist ein Hilfsdialog, der die Suche nach geeigneten Formeln unterstützt. Der Formelgenerator unterscheidet sich von Menubalken *Formeln* durch eine kurze Erklärung über die Arbeitsweise einer ausgewählten Funktion. 
+Direkt neben dem Eingabefeld mit dem Inhalt der aktiven Zelle ist das Bedienfeld für den *Formelgenerator*. Der Formelgenerator ist ein Hilfsdialog, der die Suche nach geeigneten Formeln unterstützt. Der Formelgenerator unterscheidet sich von Menübalken *Formeln* durch eine kurze Erklärung über die Arbeitsweise einer ausgewählten Funktion. 
 
 ## Statusleiste
 
