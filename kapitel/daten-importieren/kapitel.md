@@ -47,7 +47,7 @@ Eine Datenverbindung wird über das Kommando `Daten abrufen (Power Query)` ausge
 
 ::: {.callout-tip}
 ## Praxis
-Die Daten sollten nur in Ausnahmefällen unkontrolliert gelanden werden. Die Daten sollten vor dem Importieren in Power Query überprüft und transformiert werden. Dadurch wird sichergestellt, dass die Daten korrekt importiert werden.
+Die Daten sollten nur in Ausnahmefällen unkontrolliert geladen werden. Die Daten sollten vor dem Importieren in Power Query überprüft und transformiert werden. Dadurch wird sichergestellt, dass die Daten korrekt importiert werden.
 :::
 
 ![Laden oder Transformieren-Auswahl beim Import einer Excel Arbeitsmappe](figures/daten_import_navigator.png){#fig-power-query-laden-oder-transformieren}
