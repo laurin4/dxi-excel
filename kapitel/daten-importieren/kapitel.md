@@ -68,7 +68,7 @@ Standardmässig werden drei bzw. bei Excel Arbeitsmappen vier Schritte in Power 
 2. `Höherstufen`
 3. `Geänderter Typ` (Windows) bzw. `geänderter Spaltentyp` (MacOS)
 
-Der Schritt `Geänderter Typ` enthält die Schemadefinition. Power Query versucht das Schema automatisch zu erkennen. Das funktioniert besonders bei Zahlenwerten nicht immer zuverlässig. Deshalb muss das Schema immer kontrolliert und gegebenefalls angepasst werden.
+Der Schritt `Geänderter Typ` enthält die Schemadefinition. Power Query versucht das Schema automatisch zu erkennen. Das funktioniert besonders bei Zahlenwerten nicht immer zuverlässig. Deshalb muss das Schema immer kontrolliert und gegebenenfalls angepasst werden.
 
 ![Schemaanpassung mit Power Query ](figures/power_query_schema_anpassung.png){#fig-power-query-editor-scheme}
 
