@@ -25,7 +25,7 @@ abstract: |
 
 **Funktion**: Bestandteil einer Formel. Funktionen werden über Parameter gesteuert. 
 
-**Kommando**: Ein Kommando ist eine Interkaktion, mit der Excel eine Aktion auslöst. Aktionen ähneln Funktionen, können aber nicht als Formel ausgedrückt werden. 
+**Kommando**: Ein Kommando ist eine Interaktion, mit der Excel eine Aktion auslöst. Aktionen ähneln Funktionen, können aber nicht als Formel ausgedrückt werden. 
 
 **Parameter**: Wert, der an eine Funktion übergeben wird. Ein Parameter kann direkt als Wert, indirekt als Adresse oder als Ergebnis einer anderen Funktion übergeben werden. 
 
