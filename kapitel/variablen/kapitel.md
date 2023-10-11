@@ -5,10 +5,6 @@ execute:
 
 # Variablen, Funktionen und Operatoren {#sec-chapter-variablen-fkts-ops}
 
-::: {.callout-warning}
-## Work in Progress
-:::
-
 ## Variablen
 
 Excel kennt keine strikte Unterscheidung zwischen Konstanten und Variablen. Grundsätzlich sind alle Werte in Excel Konstanten, weil direkt eingegebene oder durch eine Formel erzeugte Werte nicht durch andere Formel verändert werden können.
