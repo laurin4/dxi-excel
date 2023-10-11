@@ -106,39 +106,64 @@ Eine Tabelle ist ein spezieller benannter Bereich, der als Ganzes oder in Teilen
 
 ## Funktionen {#sec-funktionen}
 
-Excel kann nur durch Funktionen programmiert werden. 
+Excel kann nur durch Funktionen und Operatoren *programmiert* werden. 
+
+Excel hat wenige vordefinierte Operatoren, wobei die Operatoren keine direkte Entsprechung als Funktion haben. Die einzige Ausnahmen sind der Potenzoperator (`^`) und der Textverkettungsoperator (`&`). Der Potenzoperator ist funktional gleich mit der `POTENZ()`-Funktion. Der Textverkettungsoperator entspricht der Funktion `TEXTKETTE()` mit zwei Argumenten. 
+
+::: {.callout-note}
+## Merke
+Die mit Excel möglichen Programme sind durch die Operatoren und die vordefinierten Funktionen beschränkt. 
+:::
+
+Excel **Kommandos** können nur durch Interaktion mit den Excel Menus oder Dialogen ausgeführt werden. Diese Funktionalität steht für die Progammierung oft nicht zur Verfügung.
 
 ::: {.callout-note}
 ## Makros
-Neben den Funktionen und Kommandos existieren in Excel noch Makros. Mit Makros können neue Kommandos und Funktionen programmiert werden. Makros folgen aber nicht den Regeln von Formeln, weil sie in einer anderen Programmiersprache geschrieben werden.
+Neben den Funktionen und Kommandos existieren in Excel noch *Makros*. Mit Makros können neue Kommandos und Funktionen programmiert werden. Makros folgen aber nicht den Regeln von Formeln, weil sie in einer anderen Programmiersprache geschrieben werden.
 
 Makros unterliegen nicht den Einschränkungen von Excel-Funktionen. Diese Freiheit ist gleichzeitig ein Fluch, denn Makros sind ein Sicherheitsrisiko und Excel präsentiert entsprechende Warnungen, wenn Makros in einer Arbeitsmappe gefunden wurde. 
 
-Aktuelle Bestrebungen von Microsoft zielen darauf ab, Makros langfristig durch Funktionen zu ersetzen. Ein Teil dieser Bestrebungen ist die Einführung von LAMBDA-Funktionen (s. [Abschnitt @sec-lambda-funktionen]).
+Aktuelle Bestrebungen von Microsoft zielen darauf ab, Makros langfristig durch Funktionen zu ersetzen. Ein Teil dieser Bestrebungen ist die Einführung von `LAMBDA()`-Funktionen (s. [Abschnitt @sec-lambda-funktionen]).
 :::
 
 ::: {.callout-note}
 ## Merke
 Excel hat keine Identitätsfunktion. Die Identitätsfunktion wird durch eine Formel simuliert, die nur eine Adresse enthält. Solche Formeln werden für das *Vektorisieren* (@def-vektorisieren) von Bereichen eingesetzt.
 :::
-## Operatoren
-
-Excel hat eine Anzahl vordefinierter Operatoren. Nicht alle Excel Operatoren haben keine direkte Entsprechung als Funktion. 
 
 ## Substitution
 
+Excel kennt zwei Formen der Substitution. 
+
+1. Die Substitution über Funktionspfade
+2. Die Substitution mit der Funktion `LET()`
+
+Beide Substitutionsformen sind fast gleichwertig. Funktionspfade eigenen sich besonders gut für die Entwicklung von und zur Fehlersuche in komplexen Formeln. `LET()` erlaubt es, mehrere Arbeitsschritte effizient in einer Formel zusammenzufassen.
+
 ### Substitution über Funktionspfade
+
+Eine komplexe Operation lassen sich in Excel durch Substitution über Funktionspfade vereinfachen. 
+
+::: {#def-funktionspfad}
+Ein **Funktionspfad** sind Formeln, die sich über ihre Adressen aufeinander beziehen. 
+:::
+
+Bei einem Funktionspfad werden die substituierten Funktionen als Formeln in separate Zellen geschrieben. Die Adresse der jeweiligen Formel wird als Substitution für die Funktion eingesetzt. Sind die Formeln in einem benannten Bereich, dann kann der Name des Bereichs zur Substitution verwendet werden. 
+
+![Funktionspfad](figures/funktionspfad.png){#fig-funktionspfad}
+
+Funktionspfade können mithilfe des Kommandos `Spur zum Vorgänger` im Menü `Formeln` sichtbar gemacht werden (@fig-funktionspfad).
+
+::: {.callout-tip}
+## Praxis
+Um komplexe Formeln in bestehenden Arbeitsmappen zu verstehen, hilft das Zerlegen dieser Formeln in Funktionspfade. Dabei kann eine tabellarische Organisation helfen, wiederkehrende Operationen leichter zu erkennen. 
+:::
 
 ### Substitution mit `LET()`
 
 Excels `LET()`-Funktion erlaubt das Vereinfachen komplizierter Formeln durch *Variablen*. Diese *Variablen* existieren nur im Kontext der `LET()`-Funktion und können nicht ausserhalb dieser Funktion verwendet werden.
 
-::: {.callout-note}
-## Problem
-Eine Funktion wird in einer Operation mit den gleichen Parametern mehrfach aufgerufen. 
-:::
-
-Eine Variable in der LET()-Funktion entspricht einer Substitution eines Teilausdrucks einer Formel.
+Eine Variable in der `LET()`-Funktion entspricht einer Substitution eines Teilausdrucks einer Formel.
 
 ::: {#exm-let-substitution}
 ## `LET()`-Funktion zur Substitution
@@ -179,19 +204,28 @@ In @exm-let-substitution wird der referenzierte Bereich und der Aufruf der `INDE
 
 Die beiden Beispiele veranschaulichen, wie mit der `LET()`-Funktion mehr als eine Substitution umgesetzt wird, um eine komplexe Formel in überschaubare Teilschritte zu zerlegen und so stark zu vereinfachen.
 
+::: {.callout-tip}
+## Praxis
+Wird eine Funktion in einer Formel mit den gleichen Parametern mehrfach aufgerufen, dann sollte diese Funktion **immer** mit `LET()` substituiert werden. Substituierte Berechnungen werden nur einmal für die Substitution durchgeführt und anschliessend wird nur das Ergebnis verwendet. Nicht substituierte Funktionen werden bei jedem Vorkommen neu ausgeführt. 
+:::
 
 ## Funktionsketten
 
-Normalerweise entsprechen Excel-Adressen diesem Konzept. Gerade bei Matrizen und bestimmten Transformationen ist das Zwischenspeichern von Werten auf einem Arbeitsblatt unhandlich, behindert die Übersichtlichkeit oder führt zu unerwarteten Ergebnissen. Mit der Funktion `LET()` können wir Hilfsvariablen anlegen und so Excel-Formeln stark vereinfachen. 
+Funktionsketten werden in Excel über Substitutionen erzeugt. Gerade bei Matrizen und anderer Transformationen von Datenstrukturen ist die Verwendung von Funktionspfaden aus zwei Gründen unhandlich: 
 
+1. Wenn die Ergebnisse mehrerer Arbeistsschritte auf einem Arbeitsblatt dargestellt werden, wird  die Übersichtlichkeit behindert.
+2. Weil Funktionspfade separate Formeln verwenden werden die Ergebnisse für jede Formel serialisiert, was nicht immer zu den erwarteten Ergebnissen führt.
 
+Weil Excel keine Operatoren für die Funktionsverkettung bereitstellt, werden Funktionsketten **immer** mithilfe der Funktion `LET()` erzeugt. 
+
+<!-- 
 ### LET() und leere Zellen {#sec-funktionsketten-leerezelle}
-
+-->
 Normalerweise werden leere Zellen als Ergebnis einer Funktion durch `0` ersetzt. Dieses Konvertierung findet erst bei der Darstellung des Ergebnisses statt. Innerhalb einer Funktionskette werden leere Zellen als leere Zellen weitergereicht, solange keine Aggregation vorgenommen wird. Es ist deshalb möglich in einer Funktionskette eine Entscheidung mit `ISTLEER()` für den Fall einer leeren Zelle zu treffen.
 
 Eine Excel-Operation **muss** einen Wert als Ergebnis einer **Formel** haben. Wird ein nicht vorhandener Wert (d.h. leere Zelle) in einem Ergebnis einer Formel gefunden, dann wird dieser Wert automatisch in den Wert `0` konvertiert. Diese Umwandlung passiert jedoch erst *nachdem* die Operation abgeschlossen ist und Excel das Ergebnis auf dem Arbeitsblatt darstellt. 
 
-Dieses Verhalten hat zur Folge, dass solange eine Operation nicht abgeschlossen ist, die nicht vorhandenen Werte in ihrer ursprünglichen Form erhalten bleiben. Es ist also möglich diese Werte mit `ISTLEER()` zu prüfen. 
+Dieses Verhalten hat zur Folge, dass solange eine Operation nicht abgeschlossen ist, die nicht vorhandenen Werte in ihrer ursprünglichen Form erhalten bleiben. Es ist also möglich undefinierte Werte mit `ISTLEER()` zu prüfen. 
 
 Die ursprünglichen Daten können unvollständig sein und enthalten dann leere Zellen an den entsprechenden Zellen. Diese fehlenden Werte als `0` darzustellen, kann zu verzerrten Ergebnissen führen. Deshalb sollten solche Werte mit dem *Fehler* `#NV` (lies: *Nicht Vorhanden*) markiert werden. Dieser Fehlerwert wird nicht automatisch in den Wert `0` umgewandelt, so dass die fehlenden Werte korrekt berücksichtigt werden können. 
 
@@ -230,15 +264,97 @@ Damit wird der Aufruf der `WENN()`-Funktion vereinfacht, weil nur noch die Hilfs
 
 ## Funktionen selbst definieren {#sec-lambda-funktionen}
 
-LAMBDA Funktion
+In Excel können eigene Funktionen mit der Funktion `LAMBDA()` erzeugt werden. Die `LAMBDA()`-Funktion erzeugt die Funktion aus ihren Parametern. Dabei ist der letzte Parameter immer der Funktionskörper. Die restlichen Parameter sind die Parameter der Funktion. Es können max 253 Parameter angegeben werden, wobei keine optionalen oder vorbelegten Parameter möglich sind. @exm-lambda-basic zeigt eine einfache Funktionsdefinition mit zwei Parametern.
 
-- Funktionen können Funktionsketten beinhalten. 
-- Funktionen können nur Bereiche als Ergebnis erzeugen.
-- Funktionen können auch intern keine komplexeren Datenstrukturen erzeugen, als Excel normalerweise zulässt. Es sind maximal 2D Bereiche erlaubt. Komplexere Sturkturen müssen über Hilfsvariablen abgebildet werden.
+::: {#exm-lambda-basic}
+## Funktionsdefinition mit zwei Parametern ohne Ausführung
+```excel
+= LAMBDA(a; b; a + b)
+```
+:::
 
-Strategie der Funktionsentwicklung
+::: {.callout-warning}
+Mit Excels `LAMBDA()`-Funktion können nur Funktionen durch Verkettung anderer Funktionen erzeugt werden. 
+:::
 
-- Funktion als Funktionspfad
-- Funktion als Funktionskette
-- Funktion als LAMBDA Funktion
-- Funktion als benanntes Element
+Für Excel sind Funktionen kein darstellbarer Datentyp. Wird also eine Funktion mit `LAMBDA()` definiert, ohne dass sie unmittelbar ausgeführt wird, zeigt Excel den Fehler  `#KALK!` an. Dieser Fehler kann dadurch vermieden werden, indem die Funktion unmittelbar ausgeführt wird (s. @exm-lambda-basic-run).
+
+
+::: {#exm-lambda-basic-run}
+## Funktionsdefinition mit zwei Parametern mit sofortiger Ausführung
+```excel
+= LAMBDA(a; b; a + b)(1;2)
+```
+:::
+
+::: {.callout-warning}
+Der Funktionskörper muss nicht alle Parameter verwenden. Wird eine Funktion aufgerufen, dann **müssen** alle Parameter angegeben werden, selbst wenn diese im Funktionskörper nicht verwendet werden.
+::: 
+
+### Map-Reduce und `LAMBDA()`
+
+Weil eine mit `LAMBDA()` erzeugte Funktion als Formel direkt ausgeführt werden muss, ergibt sich kein Vorteil gegenüber normalen Excel-Formeln. Die Funktion wird jedoch zum Erstellen von Callbacks benötigt. Die Hauptanwendung sind Operationen, die mit jedem Wert eines Bereichs durchgeführt werden sollen. Weil Excel normalerweise keine Schleifen zulässt, müssen solche Operationen über die Logikfunktionen `MAP()`, `NACHZEILE()`, `NACHSPALTE()`, `REDUCE()` und `SCAN()` erzeugt werden.
+
+Alle Map-Funktionen erwarten als ersten Parameter einen Bereich mit Werten und als letzten Parameter eine Funktionsdefinition mit `LAMBDA()`.
+
+- `MAP()` erzeugt eine Schleife, welche den Callback für jedes Element genau einmal aufruft. Es ist möglich, mehrere Bereiche anzugeben. Die Parameteranzahl der Callback muss der Anzahl der angegebenen Bereiche entsprechen. 
+
+- `NACHSPALTE()` erzeugt eine Schleife, die eine Funktion für jede Spalte eines Bereichs aufruft. Der Callback darf nur einen Parameter haben. Der Parameter enthält eine Liste mit allen Werten der aktuellen Zeile.
+
+- `NACHZEILE()` erzeugt eine Schleife, die eine Funktion für jede Zeile eines Bereichs aufruft. Der Callback darf nur einen Parameter haben.
+
+`MAP()`, `NACHSPALTE()` und `NACHZEILE()` behandeln die einzelnen Durchläufe der Schleife als *unabhängig*. Im Gegensatz dazu sind die Durchläufe einer `REDUCE()` oder `SCAN()`-Schleife immer vom voherigen Durchlauf *abhängig*. `REDUCE()` und `SCAN()` erfordern als ersten Parameter einen Initialwert, der als Argument für den ersten Aufruf des Callbacks verwendet wird. 
+
+- `REDUCE()` erzeugt eine Schleife, die für jedes Element eines Bereichs den Callback ausführt. Diese Funktion erhält als ersten Parameter, das  Callback-Ergebnis des vorherigen Durchlaufs und als zweiten Parameter. Das Ergebnis von `REDUCE()` ist das Ergebnis des letzten Aufrufs der Schleifenfunktion. 
+
+- `SCAN()` ist eine Variante von `REDUCE()`. Während `REDUCE()` nur das letzte Ergebnis der Callbacks ausgibt, erzeugt `SCAN()` einen Vektor mit allen Ergebnissen der Callback-Aufrufe. 
+
+::: {.callout-warning}
+Die Map-Reduce-Funktionen dürfen nur einzelne Werte erzeugen. Datenstrukturen sind auch dann nicht erlaubt, wenn sie alle die gleiche Länge haben und sich in einen rechteckigen Bereich zusammenfügen liessen. Diese Beschränkung gilt auch, wenn die Funktionsergebnisse als Zwischenschritt an eine Kombinationsfunktion für Vektoren (z.B. `VSTAPELN()`) verknüpft werden. Erzeugt ein Callback eine Datenstruktur, dann erzeugt die jeweilige Funktion den Fehlerwert `#KALK!`.
+
+Einzig die Funktion `REDUCE()` darf Datenstrukturen erzeugen; weil diese Funktion nur ein Ergebnis haben kann.
+
+Diese Einschränkung bedeutet, dass die Funktionen `NACHSPALTE()` und `NACHZEILE()` die Identitätsfunktion **nicht** als Callback akzeptieren.
+::: 
+
+### Index-Schleifen mit `MATRIXERSTELLEN()`
+
+Während die Funktionen der Map-Reduce-Familie Werte voraussetzen, ist dies nicht immer möglich. Die Funktion `MATRIXERSTELLEN()` erzeugt eine Schleife über zwei Iteratoren, für die Dimensionen der gewünschten  Matrix. Der Callback für die Funktion erfordert deshalb 2 Parameter für die beiden Indizes.   
+
+::: {.callout-tip}
+## Praxis
+Die Funktion `MATRIXERSTELLEN()` kann meistens durch das ***äussere Produkt*** (@sec-chapter-matrix-operationen) ersetzt werden. 
+:::
+
+Der Callback für `MATRIXERSTELLEN()` darf nur zwei Parameter haben, denen die aktuellen Index-Werte zugewiesen werden. Daraus ergibt sich, dass im Funktionskörper nur diese beiden Parameter bereitgestellt werden. Komplexere Anwendungen lassen sich mit *Closures* erzeugen. Dazu wird eine Funktion mit LAMBDA() erzeugt, die zusätzliche Werte oder Datenstrukturen als Parameter unterstützt. Diese Funktion erzeugt anschliessend den Callback für `MATRIXERZEUGEN()`. Der Callback ist also ein Closure der erzeugenden Funktion. Dadurch kann der Callback die Werte und Datenstrukturen der erzeugenden Funktion beim Aufruf durch die Funktion `MATRIXERZEUGEN()` ebenfalls verwenden (s. @exm-matrixerstellen-mit-closure). 
+
+::: {#exm-matrixerstellen-mit-closure}
+## Matrix mit Closure erstellen
+Im Bereich `A1:A4` stehen beliebige Zeichenketten.
+
+```
+=MATRIXERSTELLEN(5;3;
+    LAMBDA(namen;
+           LAMBDA(a;b; 
+                  ZEILENWAHL(namen; 
+                             REST(a+b; 
+                                  ZEILEN(namen))+1)
+           )
+    )(A1:A4)
+ )
+```
+:::
+
+### Neue Funktionen festlegen
+
+Neben Schleifen können mit `LAMBDA()` neue Funktionen erzeugt werden. Dazu muss in einem Arbeitsblatt ein Name mit der Funktionsdefinition erzeugt werden. Namen werden über das Menüband `Formeln` mit dem Kommando `Namen definieren` erzeugt. Dieses Kommando öffnet einen Dialog, über welchen ein Name definiert werden kann(@fig-lambda-funcdef). In diesem Dialog müssen die beiden Felder `Name` und `Bezieht sich auf` ausgefüllt werden. 
+
+Der `Name` ist der Bezeichner der neuen Funktion. Hier dürfen keine Namen vorhandener Funktionen oder benannter Bereiche verwendet werden. Das Feld `Bezieht sich auf` muss eine LAMBDA-Formel mit der Funktionsdefinition beinhalten. Als `Bereich` sollte immer `Arbeitsmappe` ausgewählt sein, weil sonst die Funktion auf ein einziges Arbeitsblatt beschränkt wäre. Zur Dokumentation sollte im Feld `Kommentar` zusätzlich eine Kurzbeschreibung der Funktion angegeben werden. Leider zeigt Excel diesen Kommentar nicht als Kurzhilfe für den Funktionsnamen an.
+
+![Funktionsdefinition mit `LAMBDA()`](figures/funktion_definieren.png){#fig-lambda-funcdef}
+
+Nachdem eine Funktion einem Namen zugewiesen wurde, kann dieser Name wie jede andere Funktion in Formeln verwendet werden (@fig-call-own-function).
+
+![Eigene Funktion anwenden](figures/funktion_anwenden.png){#fig-call-own-function}
+
+Als Funktionskörper können beliebige Excel Operationen vorkommen. Es bietet sich jedoch an, für komplexere Funktionen den Funktionskörper mit `LET()` einzuleiten. Dadurch lassen sich einzelne Arbeitsschritte leichter isolieren und verketten.
