@@ -118,7 +118,7 @@ Weil `RECHTS()` vom Ende her zählt, kann nicht die gleiche Position wie bei `LI
 ```
 :::
 
-Etwas eleganter arbeiten die beiden Funktionen `TEXTVOR()` und `TEXTNACH()`. Diese Funktionen suchen nach einer Teilzeichenkette und ergeben die Zeichen vor bzw. nach dieser Zeichenkette. Ein zusätzlicher Parameter ermöglicht die Suche solange zu wiederholen, bis die gesuchte Zeichenkette genau mit dieser Anzahl gefunden wurde. 
+Etwas eleganter arbeiten die beiden Funktionen `TEXTVOR()` und `TEXTNACH()`. Diese Funktionen suchen nach einer Teilzeichenkette und ergeben die Zeichen vor bzw. nach dieser Zeichenkette. Ein zusätzlicher Parameter ermöglicht die Suche solange zu wiederholen, bis die gesuchte Zeichenkette genau so oft gefunden wurde. 
 
 ::: {#exm-fkt-textvor}
 ## `TEXTVOR()` vor dem ersten Treffer
