@@ -109,7 +109,7 @@ Die Funktion `LINKS()` und `RECHTS()` geben eine Teilzeichenkette mit einer fest
 
 Weil `RECHTS()` vom Ende her zählt, kann nicht die gleiche Position wie bei `LINKS()` verwendet werden. Dazu muss die Position von der Gesamtlänge der Zeichenkette abgezogen werden (s. @exm-fkt-rechts).
 
-::: {#exm-fkt-links}
+::: {#exm-fkt-rechts}
 ## Zeichen rechts von der 10. Position zurückgegeben
 ```
 = RECHTS(
