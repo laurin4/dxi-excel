@@ -18,9 +18,15 @@ execute:
 
 `ZUZEILE()`
 
-## Einheitsmatrix erzeugen
+## Matrizen vergleichen
 
-`MEINHEIT()`
+```
+= UND(Matrix1!A1# = Matrix2!A1#)
+```
+
+## Einheitsmatrix erzeugen
+
+Excel erlaubt nur das Erzeugen der Identitätsmatrix. Die Funktion `MEINHEIT()` erzeugt also immer eine quadratische Einheitsmatrix. 
 
 ## Matrizen Transponieren
 
