@@ -127,6 +127,24 @@ Aktuelle Bestrebungen von Microsoft zielen darauf ab, Makros langfristig durch F
 Excel hat keine Identitätsfunktion. Die Identitätsfunktion wird durch eine Formel simuliert, die nur eine Adresse enthält. Solche Formeln werden für das *Vektorisieren* (@def-vektorisieren) von Bereichen eingesetzt.
 :::
 
+### Generatoren in Excel
+
+Excel hat zwei Generatorfunktionen:
+
+- Die `SEQUENZ()`-Funktion
+- Die `ZUFALLSMATRIX()`-Funktion
+
+Beide Generatoren erfordern die Anzahl der Zeilen und Spalten, für die Werte generiert werden sollen. Soll nur ein Spaltenvektor erzeugt werden, muss nur die Anzahl der Zeilen angegeben werden.
+
+Die `SEQUENZ()`-Funktion erzeugt eine Sequenz von Werten ausgehend vom ersten Wert (`Anfang`). Die Schrittweite legt die Abstände zwischen den einzelnen Werten fest. Standardmässig ist die Schrittweite mit `1` festgelegt. 
+
+::: {.callout-note}
+## Merke
+Wird die Schrittweite mit `0` festgelegt, dann wird der Anfangswert für die angegebene Anzahl von Spalten und Zeilen wiederholt.
+:::
+
+Die Funktion `ZUFALLSMATRIX()` erzeugt Zufallswerte in einem vorgegebenen Intervall. Diese Funktion kann reelle Zahlen oder ganze Zahlen generieren. Der Wertebereich der generierten Zahlen kann durch einen Minimal- und einem Maximalwert eingeschränkt werden. Wird kein Minimal- und Maximalwert angegeben, dann werden Werte im Intervall $0 < z < 1$ generiert. Werden Ganzzahlen für dieses Intervall angefordert, dann werden die Werte `0` und `1` erzeugt.
+
 ## Substitution
 
 Excel kennt zwei Formen der Substitution. 
