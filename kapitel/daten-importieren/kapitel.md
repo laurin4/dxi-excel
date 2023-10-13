@@ -47,7 +47,7 @@ Eine Datenverbindung wird über das Kommando `Daten abrufen (Power Query)` ausge
 
 ::: {.callout-tip}
 ## Praxis
-Die Daten sollten nur in Ausnahmefällen unkontrolliert gelanden werden. Die Daten sollten vor dem Importieren in Power Query überprüft und transformiert werden. Dadurch wird sichergestellt, dass die Daten korrekt importiert werden.
+Die Daten sollten nur in Ausnahmefällen unkontrolliert geladen werden. Die Daten sollten vor dem Importieren in Power Query überprüft und transformiert werden. Dadurch wird sichergestellt, dass die Daten korrekt importiert werden.
 :::
 
 ![Laden oder Transformieren-Auswahl beim Import einer Excel Arbeitsmappe](figures/daten_import_navigator.png){#fig-power-query-laden-oder-transformieren}
@@ -68,7 +68,7 @@ Standardmässig werden drei bzw. bei Excel Arbeitsmappen vier Schritte in Power 
 2. `Höherstufen`
 3. `Geänderter Typ` (Windows) bzw. `geänderter Spaltentyp` (MacOS)
 
-Der Schritt `Geänderter Typ` enthält die Schemadefinition. Power Query versucht das Schema automatisch zu erkennen. Das funktioniert besonders bei Zahlenwerten nicht immer zuverlässig. Deshalb muss das Schema immer kontrolliert und gegebenefalls angepasst werden.
+Der Schritt `Geänderter Typ` enthält die Schemadefinition. Power Query versucht das Schema automatisch zu erkennen. Das funktioniert besonders bei Zahlenwerten nicht immer zuverlässig. Deshalb muss das Schema immer kontrolliert und gegebenenfalls angepasst werden.
 
 ![Schemaanpassung mit Power Query ](figures/power_query_schema_anpassung.png){#fig-power-query-editor-scheme}
 
@@ -153,7 +153,7 @@ Im Gegensatz zu Excel behandelt Power Query Datum und Uhrzeit als eigenen Datent
 
 : Power Query Datentypen mit Symbolen {#tbl-power-query-datentypen}
 
-Der Datentyp einer Spalte lässt sich mit dem Kommando `Datentyp` anpassen. Wird auf das Kommando im Menubalken geklickt, öffnet sich eine Auswahlliste, aus der der richtige Datentyp ausgewählt werden kann (@fig-pq-spaltentyp-aendern). Wird der Datentyp geändert, dann erfolgt eine Abfrage (s. @fig-pq-datentyp-schritt-dialog), ob der Datentyp im aktuellen Arbeitsschritt erstzt werden soll (`Aktuelle ersetzen`) oder ob ein neuer Arbeitsschritt eingefügt werden soll (`Neuen Schritt hinzufügen`). Hier kann normalerweise `Aktuelle ersetzen` ausgewählt werden.
+Der Datentyp einer Spalte lässt sich mit dem Kommando `Datentyp` anpassen. Wird auf das Kommando im Menubalken geklickt, öffnet sich eine Auswahlliste, aus der der richtige Datentyp ausgewählt werden kann (@fig-pq-spaltentyp-aendern). Wird der Datentyp geändert, dann erfolgt eine Abfrage (s. @fig-pq-datentyp-schritt-dialog), ob der Datentyp im aktuellen Arbeitsschritt ersetzt werden soll (`Aktuelle ersetzen`) oder ob ein neuer Arbeitsschritt eingefügt werden soll (`Neuen Schritt hinzufügen`). Hier kann normalerweise `Aktuelle ersetzen` ausgewählt werden.
 
 ![Änderung des Datentyps einer Spalte](figures/power_query_datentyp_aendern.png){#fig-pq-spaltentyp-aendern}
 
