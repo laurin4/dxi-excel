@@ -153,7 +153,7 @@ Im Gegensatz zu Excel behandelt Power Query Datum und Uhrzeit als eigenen Datent
 
 : Power Query Datentypen mit Symbolen {#tbl-power-query-datentypen}
 
-Der Datentyp einer Spalte lässt sich mit dem Kommando `Datentyp` anpassen. Wird auf das Kommando im Menubalken geklickt, öffnet sich eine Auswahlliste, aus der der richtige Datentyp ausgewählt werden kann (@fig-pq-spaltentyp-aendern). Wird der Datentyp geändert, dann erfolgt eine Abfrage (s. @fig-pq-datentyp-schritt-dialog), ob der Datentyp im aktuellen Arbeitsschritt erstzt werden soll (`Aktuelle ersetzen`) oder ob ein neuer Arbeitsschritt eingefügt werden soll (`Neuen Schritt hinzufügen`). Hier kann normalerweise `Aktuelle ersetzen` ausgewählt werden.
+Der Datentyp einer Spalte lässt sich mit dem Kommando `Datentyp` anpassen. Wird auf das Kommando im Menubalken geklickt, öffnet sich eine Auswahlliste, aus der der richtige Datentyp ausgewählt werden kann (@fig-pq-spaltentyp-aendern). Wird der Datentyp geändert, dann erfolgt eine Abfrage (s. @fig-pq-datentyp-schritt-dialog), ob der Datentyp im aktuellen Arbeitsschritt ersetzt werden soll (`Aktuelle ersetzen`) oder ob ein neuer Arbeitsschritt eingefügt werden soll (`Neuen Schritt hinzufügen`). Hier kann normalerweise `Aktuelle ersetzen` ausgewählt werden.
 
 ![Änderung des Datentyps einer Spalte](figures/power_query_datentyp_aendern.png){#fig-pq-spaltentyp-aendern}
 
